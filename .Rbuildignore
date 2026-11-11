@@ -1,0 +1,11 @@
+^renv$
+^renv\.lock$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.gitignore$
+^LICENSE\.md$
+^README\.md$
+^VERIFICATION\.md$
+^tools$
+^doc$
+^Meta$

@@ -1,0 +1,14 @@
+/* taiga example front end: one card, styled with the Lumen tokens (works in Shiny, Quarto and HTML) */
+.hello { min-height: 320px; padding: 48px 24px; display: grid; place-items: center; background: var(--lm-bg, #fbfbfd); color: var(--lm-text, #1d1d1f); font-family: var(--lm-font, system-ui, sans-serif); }
+.hello .hello-card { width: min(560px, 100%); padding: 32px; border-radius: var(--lm-r-l, 26px); background: var(--lm-card, rgba(255, 255, 255, .72));
+  border: 1px solid var(--lm-line, rgba(0, 0, 0, .08)); box-shadow: var(--lm-shadow-2, 0 30px 70px rgba(0, 0, 0, .13));
+  -webkit-backdrop-filter: var(--lm-glass, blur(20px)); backdrop-filter: var(--lm-glass, blur(20px)); }
+.hello .hello-mode { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; color: var(--lm-text-2, #6e6e73); border: 1px solid var(--lm-line, rgba(0, 0, 0, .08)); }
+.hello .hello-mode i { width: 7px; height: 7px; border-radius: 50%; background: var(--lm-good, #1f9d55); }
+.hello h1 { margin: 18px 0 8px; font-size: clamp(32px, 5vw, 48px); line-height: 1.04; letter-spacing: var(--lm-track-display, -.045em); font-weight: 700; }
+.hello h1 b { background: var(--lm-grad, linear-gradient(100deg, #2563eb, #7c3aed, #db2777)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hello ul { list-style: none; padding: 0; margin: 20px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.hello li { padding: 8px 14px; border-radius: 999px; background: var(--lm-bg-3, #ececf0); font-weight: 600; font-size: 14px; }
+.hello button { margin-top: 22px; height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--lm-accent, #0071e3); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { .hello .hello-card { animation: hello-in .6s var(--lm-ease, ease) both; } }
+@keyframes hello-in { from { opacity: 0; transform: translateY(12px); } }

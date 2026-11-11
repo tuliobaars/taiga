@@ -1,0 +1,1198 @@
+{
+ "app": "QuantSkill",
+ "framework": "lumen",
+ "files": [
+  "QuantSkill/srcjs/css/quantskill.css"
+ ],
+ "bytes": 87858,
+ "rules": 843,
+ "declarations": 2810,
+ "custom_properties": {
+  ".qs": {
+   "--font": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"SF Pro Text\", \"Inter\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+   "--mono": "ui-monospace, \"SF Mono\", SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace",
+   "--bg": "#fbfbfd",
+   "--bg-2": "#f5f5f7",
+   "--bg-3": "#ececf0",
+   "--card": "rgba(255, 255, 255, .72)",
+   "--card-solid": "#ffffff",
+   "--card-hover": "#ffffff",
+   "--text": "#1d1d1f",
+   "--text-2": "#6e6e73",
+   "--text-3": "#86868b",
+   "--line": "rgba(0, 0, 0, .08)",
+   "--line-2": "rgba(0, 0, 0, .14)",
+   "--accent": "#0071e3",
+   "--accent-2": "#7c3aed",
+   "--accent-soft": "rgba(0, 113, 227, .1)",
+   "--good": "#1f9d55",
+   "--good-bg": "rgba(52, 199, 89, .13)",
+   "--bad": "#e5484d",
+   "--bad-bg": "rgba(255, 59, 48, .1)",
+   "--warn": "#d97706",
+   "--warn-bg": "rgba(245, 158, 11, .14)",
+   "--info": "#0a84ff",
+   "--info-bg": "rgba(10, 132, 255, .11)",
+   "--shadow-1": "0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .06)",
+   "--shadow-2": "0 2px 6px rgba(0, 0, 0, .05), 0 30px 70px rgba(0, 0, 0, .13)",
+   "--r-xl": "34px",
+   "--r-l": "26px",
+   "--r-m": "18px",
+   "--r-s": "12px",
+   "--ease": "cubic-bezier(.2, .8, .2, 1)",
+   "--spring": "cubic-bezier(.34, 1.56, .64, 1)",
+   "--nav-h": "52px",
+   "--maxw": "1120px",
+   "--cat": "#0071e3",
+   "--cat2": "#7c3aed",
+   "--cat-soft": "#e6f0fc"
+  },
+  ".qs[data-theme=\"dark\"]": {
+   "--bg": "#000",
+   "--bg-2": "#0f0f11",
+   "--bg-3": "#1b1b1e",
+   "--card": "rgba(28, 28, 30, .72)",
+   "--card-solid": "#1c1c1e",
+   "--card-hover": "#232326",
+   "--text": "#f5f5f7",
+   "--text-2": "#a1a1a6",
+   "--text-3": "#6e6e73",
+   "--line": "rgba(255, 255, 255, .1)",
+   "--line-2": "rgba(255, 255, 255, .18)",
+   "--accent": "#0a84ff",
+   "--accent-soft": "rgba(10, 132, 255, .16)",
+   "--good": "#32d74b",
+   "--good-bg": "rgba(50, 215, 75, .16)",
+   "--bad": "#ff6961",
+   "--bad-bg": "rgba(255, 69, 58, .16)",
+   "--warn": "#ffb340",
+   "--warn-bg": "rgba(255, 159, 10, .16)",
+   "--info-bg": "rgba(10, 132, 255, .18)",
+   "--shadow-1": "0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .45)",
+   "--shadow-2": "0 2px 6px rgba(0, 0, 0, .4), 0 30px 70px rgba(0, 0, 0, .6)"
+  },
+  ".qs-btn": {
+   "--b-bg": "var(--bg-3)",
+   "--b-fg": "var(--text)"
+  },
+  ".qs-btn.is-primary": {
+   "--b-bg": "var(--accent)",
+   "--b-fg": "#fff"
+  },
+  ".qs-btn.is-ghost": {
+   "--b-bg": "transparent",
+   "--b-fg": "var(--accent)"
+  },
+  ".qs-btn.is-ghost:hover:not(:disabled)": {
+   "--b-bg": "var(--accent-soft)"
+  },
+  ".qs-btn.is-white": {
+   "--b-bg": "#fff",
+   "--b-fg": "#111"
+  },
+  ".qs-orbit-slot": {
+   "--a": "calc(360deg / var(--n) * var(--i))"
+  },
+  ".qs-bento-card": {
+   "--rx": "0deg",
+   "--ry": "0deg",
+   "--mx": "50%",
+   "--my": "50%"
+  },
+  ".qs-quiz": {
+   "--cat-glow": "color-mix(in srgb, var(--cat) 14%, transparent)"
+  },
+  ".qs-option": {
+   "--k": "0"
+  }
+ },
+ "n_custom_properties": 75,
+ "dark_scopes": [
+  ".qs[data-theme=\"dark\"]"
+ ],
+ "colors_top": [
+  [
+   "#ffffff",
+   45
+  ],
+  [
+   "#f97316",
+   10
+  ],
+  [
+   "#2563eb",
+   8
+  ],
+  [
+   "#a855f7",
+   5
+  ],
+  [
+   "#7c3aed",
+   4
+  ],
+  [
+   "#15803d",
+   4
+  ],
+  [
+   "#b45309",
+   4
+  ],
+  [
+   "#f5f5f7",
+   3
+  ],
+  [
+   "#0a84ff",
+   3
+  ],
+  [
+   "rgba(0, 0, 0, .35)",
+   3
+  ],
+  [
+   "rgba(255, 255, 255, .5)",
+   3
+  ],
+  [
+   "#ec4899",
+   3
+  ],
+  [
+   "rgba(255, 255, 255, .7)",
+   3
+  ],
+  [
+   "rgba(255, 255, 255, .85)",
+   3
+  ],
+  [
+   "color-mix(in srgb, var(--cat) 7%, var(--card-solid))",
+   3
+  ],
+  [
+   "#fbfbfd",
+   2
+  ],
+  [
+   "#000000",
+   2
+  ],
+  [
+   "rgba(255, 255, 255, .72)",
+   2
+  ],
+  [
+   "#6e6e73",
+   2
+  ],
+  [
+   "#0071e3",
+   2
+  ],
+  [
+   "#e5484d",
+   2
+  ],
+  [
+   "#ff6961",
+   2
+  ],
+  [
+   "rgba(0, 0, 0, .4)",
+   2
+  ],
+  [
+   "#111111",
+   2
+  ],
+  [
+   "rgba(255, 255, 255, .8)",
+   2
+  ],
+  [
+   "#10b981",
+   2
+  ],
+  [
+   "#0ea5e9",
+   2
+  ],
+  [
+   "color-mix(in srgb, var(--cat) 18%, transparent)",
+   2
+  ],
+  [
+   "#0b0b0f",
+   2
+  ],
+  [
+   "#4ade80",
+   2
+  ],
+  [
+   "#fb7185",
+   2
+  ],
+  [
+   "color-mix(in srgb, var(--cat) 16%, transparent)",
+   2
+  ],
+  [
+   "color-mix(in srgb, var(--cat) 35%, transparent)",
+   2
+  ],
+  [
+   "color-mix(in srgb, var(--cat) 14%, transparent)",
+   2
+  ],
+  [
+   "#ef4444",
+   2
+  ],
+  [
+   "rgba(0, 0, 0, .03)",
+   2
+  ],
+  [
+   "#fbbf24",
+   2
+  ],
+  [
+   "#ececf0",
+   1
+  ],
+  [
+   "#1d1d1f",
+   1
+  ],
+  [
+   "#86868b",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .08)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .14)",
+   1
+  ],
+  [
+   "rgba(0, 113, 227, .1)",
+   1
+  ],
+  [
+   "#1f9d55",
+   1
+  ],
+  [
+   "rgba(52, 199, 89, .13)",
+   1
+  ],
+  [
+   "rgba(255, 59, 48, .1)",
+   1
+  ],
+  [
+   "#d97706",
+   1
+  ],
+  [
+   "rgba(245, 158, 11, .14)",
+   1
+  ],
+  [
+   "rgba(10, 132, 255, .11)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .04)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .06)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .05)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, .13)",
+   1
+  ],
+  [
+   "#e6f0fc",
+   1
+  ],
+  [
+   "#0f0f11",
+   1
+  ],
+  [
+   "#1b1b1e",
+   1
+  ],
+  [
+   "rgba(28, 28, 30, .72)",
+   1
+  ],
+  [
+   "#1c1c1e",
+   1
+  ],
+  [
+   "#232326",
+   1
+  ],
+  [
+   "#a1a1a6",
+   1
+  ]
+ ],
+ "n_distinct_colors": 123,
+ "font_families": [
+  [
+   "var(--font)",
+   5
+  ],
+  [
+   "var(--mono)",
+   5
+  ],
+  [
+   "-apple-system, BlinkMacSystemFont, \"Inter\", \"Segoe UI\", Roboto, sans-serif",
+   2
+  ]
+ ],
+ "font_faces": [],
+ "font_sizes": [
+  [
+   "13px",
+   26
+  ],
+  [
+   "14px",
+   20
+  ],
+  [
+   "12px",
+   18
+  ],
+  [
+   "15px",
+   15
+  ],
+  [
+   "12.5px",
+   15
+  ],
+  [
+   "11px",
+   10
+  ],
+  [
+   "11.5px",
+   8
+  ],
+  [
+   "13.5px",
+   7
+  ],
+  [
+   "16px",
+   7
+  ],
+  [
+   "14.5px",
+   7
+  ],
+  [
+   "17px",
+   6
+  ],
+  [
+   "18px",
+   6
+  ],
+  [
+   "22px",
+   5
+  ],
+  [
+   "26px",
+   5
+  ],
+  [
+   "28px",
+   3
+  ],
+  [
+   "21px",
+   3
+  ],
+  [
+   "15.5px",
+   3
+  ],
+  [
+   "20px",
+   3
+  ],
+  [
+   "10.5px",
+   3
+  ],
+  [
+   "inherit",
+   2
+  ],
+  [
+   ".86em",
+   2
+  ],
+  [
+   "19px",
+   2
+  ],
+  [
+   "24px",
+   2
+  ],
+  [
+   "54px",
+   2
+  ],
+  [
+   "clamp(52px, 9.2vw, 112px)",
+   1
+  ],
+  [
+   "clamp(40px, 6vw, 72px)",
+   1
+  ],
+  [
+   "clamp(18px, 2vw, 22px)",
+   1
+  ],
+  [
+   "clamp(36px, 5vw, 56px)",
+   1
+  ],
+  [
+   "clamp(32px, 4.6vw, 56px)",
+   1
+  ],
+  [
+   "clamp(26px, 3vw, 36px)",
+   1
+  ]
+ ],
+ "font_weights": [
+  [
+   "700",
+   18
+  ],
+  [
+   "650",
+   15
+  ],
+  [
+   "750",
+   13
+  ],
+  [
+   "600",
+   10
+  ],
+  [
+   "550",
+   5
+  ],
+  [
+   "400",
+   3
+  ],
+  [
+   "inherit",
+   1
+  ]
+ ],
+ "letter_spacing": [
+  [
+   "-.02em",
+   10
+  ],
+  [
+   "-.04em",
+   7
+  ],
+  [
+   "-.03em",
+   4
+  ],
+  [
+   "-.035em",
+   3
+  ],
+  [
+   ".05em",
+   3
+  ],
+  [
+   ".02em",
+   2
+  ],
+  [
+   "-.05em",
+   2
+  ],
+  [
+   ".06em",
+   2
+  ],
+  [
+   "-.011em",
+   1
+  ],
+  [
+   "inherit",
+   1
+  ],
+  [
+   "-.045em",
+   1
+  ],
+  [
+   "-.015em",
+   1
+  ],
+  [
+   "-.025em",
+   1
+  ],
+  [
+   ".04em",
+   1
+  ],
+  [
+   ".12em",
+   1
+  ]
+ ],
+ "radii": [
+  [
+   "50%",
+   21
+  ],
+  [
+   "999px",
+   17
+  ],
+  [
+   "var(--r-m)",
+   13
+  ],
+  [
+   "var(--r-l)",
+   10
+  ],
+  [
+   "10px",
+   6
+  ],
+  [
+   "14px",
+   6
+  ],
+  [
+   "6px",
+   4
+  ],
+  [
+   "13px",
+   4
+  ],
+  [
+   "12px",
+   4
+  ],
+  [
+   "18px",
+   3
+  ],
+  [
+   "8px",
+   3
+  ],
+  [
+   "2px",
+   2
+  ],
+  [
+   "var(--r-xl)",
+   2
+  ],
+  [
+   "9px",
+   2
+  ],
+  [
+   "15px",
+   2
+  ],
+  [
+   "3px",
+   2
+  ],
+  [
+   "5px",
+   1
+  ],
+  [
+   "28px",
+   1
+  ],
+  [
+   "22px",
+   1
+  ],
+  [
+   "17px",
+   1
+  ]
+ ],
+ "shadows": [
+  [
+   "var(--shadow-1)",
+   13
+  ],
+  [
+   "var(--shadow-2)",
+   6
+  ],
+  [
+   "0 0 0 4px var(--accent-soft)",
+   3
+  ],
+  [
+   "0 12px 26px -10px var(--cat)",
+   2
+  ],
+  [
+   "0 1px 2px rgba(0, 0, 0, .03)",
+   2
+  ],
+  [
+   "0 0 0 3px var(--good-bg)",
+   1
+  ],
+  [
+   "0 6px 20px -6px color-mix(in srgb, var(--accent) 70%, transparent)",
+   1
+  ],
+  [
+   "0 10px 28px -6px color-mix(in srgb, var(--accent) 80%, transparent)",
+   1
+  ],
+  [
+   "inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent)",
+   1
+  ],
+  [
+   "0 10px 30px -8px rgba(0, 0, 0, .35)",
+   1
+  ],
+  [
+   "0 18px 40px -12px color-mix(in srgb, var(--cat) 70%, transparent), inset 0 1px 0 rgba(255, 255, 255, .35)",
+   1
+  ],
+  [
+   "0 0 0 0 var(--accent)",
+   1
+  ],
+  [
+   "0 2px 8px rgba(0, 0, 0, .12)",
+   1
+  ],
+  [
+   "0 0 0 4px var(--bad-bg)",
+   1
+  ],
+  [
+   "0 0 0 4px color-mix(in srgb, var(--cat) 16%, transparent)",
+   1
+  ]
+ ],
+ "backdrop_filter_decls": 18,
+ "backdrop_examples": [
+  [
+   "blur(20px) saturate(170%)",
+   4
+  ],
+  [
+   "blur(20px)",
+   3
+  ],
+  [
+   "saturate(180%) blur(20px)",
+   2
+  ],
+  [
+   "blur(20px) saturate(160%)",
+   2
+  ],
+  [
+   "blur(22px) saturate(170%)",
+   2
+  ],
+  [
+   "blur(8px)",
+   2
+  ],
+  [
+   "blur(16px)",
+   1
+  ],
+  [
+   "blur(10px)",
+   1
+  ]
+ ],
+ "blur_filter_decls": 4,
+ "gradients": {
+  "radial-gradient": 6,
+  "linear-gradient": 24,
+  "conic-gradient": 3
+ },
+ "easings": [
+  [
+   "var(--spring)",
+   32
+  ],
+  [
+   "var(--ease)",
+   27
+  ],
+  [
+   "ease-in-out",
+   12
+  ],
+  [
+   "linear",
+   7
+  ],
+  [
+   "ease",
+   2
+  ],
+  [
+   "cubic-bezier(.34, 1.56, .64, 1)",
+   2
+  ]
+ ],
+ "durations": [
+  [
+   ".2s",
+   22
+  ],
+  [
+   ".25s",
+   21
+  ],
+  [
+   ".3s",
+   19
+  ],
+  [
+   ".5s",
+   10
+  ],
+  [
+   ".4s",
+   9
+  ],
+  [
+   ".45s",
+   6
+  ],
+  [
+   ".35s",
+   5
+  ],
+  [
+   ".55s",
+   5
+  ],
+  [
+   ".9s",
+   5
+  ],
+  [
+   ".6s",
+   5
+  ],
+  [
+   ".7s",
+   4
+  ],
+  [
+   "60s",
+   4
+  ],
+  [
+   ".8s",
+   4
+  ],
+  [
+   "1.6s",
+   4
+  ],
+  [
+   "1.8s",
+   2
+  ]
+ ],
+ "z_index": [
+  [
+   "-1",
+   1
+  ],
+  [
+   "50",
+   1
+  ],
+  [
+   "2",
+   1
+  ],
+  [
+   "1",
+   1
+  ],
+  [
+   "5",
+   1
+  ],
+  [
+   "20",
+   1
+  ],
+  [
+   "3",
+   1
+  ],
+  [
+   "15",
+   1
+  ],
+  [
+   "60",
+   1
+  ],
+  [
+   "100",
+   1
+  ],
+  [
+   "200",
+   1
+  ],
+  [
+   "300",
+   1
+  ],
+  [
+   "100001",
+   1
+  ]
+ ],
+ "media_queries": [
+  [
+   "@media (max-width: 720px)",
+   32
+  ],
+  [
+   "@media (max-width: 980px)",
+   16
+  ],
+  [
+   "@media (prefers-reduced-motion: reduce)",
+   3
+  ],
+  [
+   "@media print",
+   2
+  ]
+ ],
+ "keyframes": [
+  "qs-breathe",
+  "qs-drift1",
+  "qs-drift2",
+  "qs-drift3",
+  "qs-view-in",
+  "qs-vt-out",
+  "qs-vt-in",
+  "qs-spin",
+  "qs-pulse",
+  "qs-shimmer",
+  "qs-rotate",
+  "qs-counter",
+  "qs-bob",
+  "qs-bob-sm",
+  "qs-ping",
+  "qs-pop",
+  "qs-shake",
+  "qs-pip",
+  "qs-flicker",
+  "qs-bump",
+  "qs-opt-in",
+  "qs-correct",
+  "qs-fb-in",
+  "qs-float-up",
+  "qs-medal",
+  "qs-dot-in"
+ ],
+ "component_prefixes": [
+  [
+   "qs",
+   1023
+  ],
+  [
+   "is",
+   220
+  ],
+  [
+   "tk",
+   6
+  ],
+  [
+   "b3",
+   2
+  ],
+  [
+   "shiny",
+   1
+  ],
+  [
+   "b1",
+   1
+  ],
+  [
+   "b2",
+   1
+  ],
+  [
+   "outer",
+   1
+  ],
+  [
+   "dashed",
+   1
+  ]
+ ],
+ "contrast_pairs": [
+  {
+   "scope": ".qs",
+   "fg": "--text",
+   "bg": "--card-solid",
+   "fg_hex": "#1d1d1f",
+   "bg_hex": "#ffffff",
+   "ratio": 16.83
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text",
+   "bg": "--bg",
+   "fg_hex": "#1d1d1f",
+   "bg_hex": "#fbfbfd",
+   "ratio": 16.28
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text",
+   "bg": "--bg-2",
+   "fg_hex": "#1d1d1f",
+   "bg_hex": "#f5f5f7",
+   "ratio": 15.46
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text",
+   "bg": "--bg-3",
+   "fg_hex": "#1d1d1f",
+   "bg_hex": "#ececf0",
+   "ratio": 14.28
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-2",
+   "bg": "--card-solid",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#ffffff",
+   "ratio": 5.07
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-2",
+   "bg": "--bg",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#fbfbfd",
+   "ratio": 4.91
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-2",
+   "bg": "--bg-2",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#f5f5f7",
+   "ratio": 4.66
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-2",
+   "bg": "--bg-3",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#ececf0",
+   "ratio": 4.3
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-3",
+   "bg": "--card-solid",
+   "fg_hex": "#86868b",
+   "bg_hex": "#ffffff",
+   "ratio": 3.62
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-3",
+   "bg": "--bg",
+   "fg_hex": "#86868b",
+   "bg_hex": "#fbfbfd",
+   "ratio": 3.51
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-3",
+   "bg": "--bg-2",
+   "fg_hex": "#86868b",
+   "bg_hex": "#f5f5f7",
+   "ratio": 3.33
+  },
+  {
+   "scope": ".qs",
+   "fg": "--text-3",
+   "bg": "--bg-3",
+   "fg_hex": "#86868b",
+   "bg_hex": "#ececf0",
+   "ratio": 3.07
+  },
+  {
+   "scope": ".qs-btn.is-white",
+   "fg": "--b-fg",
+   "bg": "--b-bg",
+   "fg_hex": "#111111",
+   "bg_hex": "#ffffff",
+   "ratio": 18.88
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text",
+   "bg": "--bg",
+   "fg_hex": "#f5f5f7",
+   "bg_hex": "#000000",
+   "ratio": 19.29
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text",
+   "bg": "--bg-2",
+   "fg_hex": "#f5f5f7",
+   "bg_hex": "#0f0f11",
+   "ratio": 17.59
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text",
+   "bg": "--bg-3",
+   "fg_hex": "#f5f5f7",
+   "bg_hex": "#1b1b1e",
+   "ratio": 15.78
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text",
+   "bg": "--card-solid",
+   "fg_hex": "#f5f5f7",
+   "bg_hex": "#1c1c1e",
+   "ratio": 15.63
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-2",
+   "bg": "--bg",
+   "fg_hex": "#a1a1a6",
+   "bg_hex": "#000000",
+   "ratio": 8.16
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-2",
+   "bg": "--bg-2",
+   "fg_hex": "#a1a1a6",
+   "bg_hex": "#0f0f11",
+   "ratio": 7.44
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-2",
+   "bg": "--bg-3",
+   "fg_hex": "#a1a1a6",
+   "bg_hex": "#1b1b1e",
+   "ratio": 6.68
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-2",
+   "bg": "--card-solid",
+   "fg_hex": "#a1a1a6",
+   "bg_hex": "#1c1c1e",
+   "ratio": 6.61
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-3",
+   "bg": "--bg",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#000000",
+   "ratio": 4.14
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-3",
+   "bg": "--bg-2",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#0f0f11",
+   "ratio": 3.78
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-3",
+   "bg": "--bg-3",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#1b1b1e",
+   "ratio": 3.39
+  },
+  {
+   "scope": ".qs[data-theme=\"dark\"]",
+   "fg": "--text-3",
+   "bg": "--card-solid",
+   "fg_hex": "#6e6e73",
+   "bg_hex": "#1c1c1e",
+   "ratio": 3.36
+  }
+ ]
+}

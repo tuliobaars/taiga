@@ -1,0 +1,13 @@
+{
+  "name": "taiga-bench",
+  "private": true,
+  "description": "Taiga screenshot benches: webR (base R in WebAssembly) for the apps' R UI code, plus front-end vendor files (Bootstrap, jQuery, ion.rangeSlider, Font Awesome) used by the bench pages.",
+  "type": "module",
+  "dependencies": {
+    "webr": "0.6.0",
+    "bootstrap": "5.3.8",
+    "jquery": "3.7.1",
+    "ion-rangeslider": "2.3.1",
+    "@fortawesome/fontawesome-free": "6.7.2"
+  }
+}

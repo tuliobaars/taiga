@@ -1,0 +1,197 @@
+{
+ "source": {
+  "modified_tracked": [
+   "BlockR/README.md",
+   "DirectoR/README.md",
+   "QuantSkill/README.md",
+   "RockShiny/README.md",
+   "lumenJourney/README.md",
+   "teal_neue/README.md"
+  ],
+  "unexpected_modified": [],
+  "code_files_modified": [],
+  "new_files": 85,
+  "unexpected_new": [],
+  "readme_lines_added_removed": {
+   "QuantSkill": [
+    "29",
+    "7"
+   ],
+   "DirectoR": [
+    "24",
+    "0"
+   ],
+   "RockShiny": [
+    "22",
+    "0"
+   ],
+   "lumenJourney": [
+    "22",
+    "0"
+   ],
+   "teal_neue": [
+    "22",
+    "0"
+   ],
+   "BlockR": [
+    "22",
+    "0"
+   ]
+  },
+  "code_files_differing_from_baseline": [],
+  "written_outside_allowed_paths": [],
+  "nested_git_index_refreshed": [
+   "DirectoR/.git/index",
+   "lumenJourney/.git/index",
+   "teal_neue/.git/index",
+   "BlockR/.git/index"
+  ],
+  "new_bytecode_files": []
+ },
+ "screenshots": {
+  "QuantSkill": {
+   "count": 10,
+   "provenance": [
+    "live"
+   ],
+   "size": "2880x1800",
+   "bytes": 3693191,
+   "issues": []
+  },
+  "DirectoR": {
+   "count": 9,
+   "provenance": [
+    "bench"
+   ],
+   "size": "2880x1800",
+   "bytes": 3401580,
+   "issues": []
+  },
+  "RockShiny": {
+   "count": 6,
+   "provenance": [
+    "bench"
+   ],
+   "size": "2880x1800",
+   "bytes": 2493415,
+   "issues": []
+  },
+  "lumenJourney": {
+   "count": 10,
+   "provenance": [
+    "live"
+   ],
+   "size": "2880x1800",
+   "bytes": 3845006,
+   "issues": []
+  },
+  "teal_neue": {
+   "count": 9,
+   "provenance": [
+    "bench"
+   ],
+   "size": "2880x1800",
+   "bytes": 4331596,
+   "issues": []
+  },
+  "BlockR": {
+   "count": 9,
+   "provenance": [
+    "bench"
+   ],
+   "size": "2880x1800",
+   "bytes": 4991792,
+   "issues": []
+  }
+ },
+ "links": {
+  "markdown_files": 21,
+  "relative_links_checked": 173,
+  "broken": []
+ },
+ "video": {
+  "file": "DirectoR/media/DirectoR_teaser_30s.mp4",
+  "codec": "h264",
+  "profile": "High",
+  "size": "1920x1080",
+  "fps": "60/1",
+  "duration_s": 30.0,
+  "audio": "aac 48000 Hz 2ch",
+  "integrated_lufs": -14.0,
+  "true_peak_dbfs": -1.9,
+  "bytes": 17749293,
+  "poster": true
+ },
+ "tokens": {
+  "sheets": {
+   "lumen/lumen-tokens.css": {
+    "rules": 10,
+    "parse_errors": 0
+   },
+   "neue/neue-tokens.css": {
+    "rules": 55,
+    "parse_errors": 0
+   }
+  },
+  "custom_properties": {
+   "QuantSkill": 75,
+   "DirectoR": 26,
+   "RockShiny": 9,
+   "lumenJourney": 75,
+   "teal_neue": 598,
+   "BlockR": 627
+  },
+  "reproducible": true
+ },
+ "delivery": {
+  "QuantSkill": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "✓",
+    "HTML": "✓"
+   }
+  },
+  "DirectoR": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "specified, not yet built",
+    "HTML": "specified, not yet built"
+   }
+  },
+  "RockShiny": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "specified, not yet built",
+    "HTML": "specified, not yet built"
+   }
+  },
+  "lumenJourney": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "✓",
+    "HTML": "✓"
+   }
+  },
+  "teal_neue": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "specified, not yet built",
+    "HTML": "specified, not yet built"
+   }
+  },
+  "BlockR": {
+   "specified": true,
+   "status": {
+    "Shiny": "✓",
+    "Quarto": "specified, not yet built",
+    "HTML": "specified, not yet built"
+   }
+  }
+ },
+ "problems": []
+}

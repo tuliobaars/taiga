@@ -1,0 +1,127 @@
+/* Lumen design tokens: a starter sheet for new Lumen projects.
+ *
+ * Lumen has no single source stylesheet: these tokens are synthesised from the four Lumen apps, with the
+ * source of every value noted (QS = QuantSkill srcjs/css/quantskill.css, LS = lumenJourney
+ * inst/story/lumen-story.css, DR = DirectoR inst/app/www/director.css, RS = RockShiny inst/app/app.css +
+ * inst/highway/highway.css). Rename the prefix (--lm-) and the root class (.lm) per product, as the apps
+ * do (.qs / --*, .lumen-story / --ls-*). See lumen/STYLEGUIDE.md.
+ *
+ * Themes: .lm (daylight, QS light) · [data-theme="dark"] (cinema, QS/LS dark) · [data-theme="paper"]
+ * (editorial light, LS) · .lm-studio (dark tool, DR) · .lm-stage (dark stage, RS). */
+
+.lm {
+  /* type (QS/LS stack; DR ships Inter as a woff2) */
+  --lm-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --lm-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --lm-fs-body: 17px;                                   /* QS, LS */
+  --lm-fs-display: clamp(52px, 9.2vw, 112px);           /* QS .qs-display */
+  --lm-fs-h1: clamp(36px, 5vw, 56px);                   /* QS .qs-h1 */
+  --lm-fs-h2: clamp(32px, 4.6vw, 56px);                 /* QS .qs-h2 */
+  --lm-fs-lede: clamp(18px, 2vw, 22px);                 /* QS .qs-lede */
+  --lm-track-display: -.045em;                          /* QS, LS */
+  --lm-track-heading: -.035em;
+  --lm-track-body: -.011em;
+
+  /* daylight palette (QS light) */
+  --lm-bg: #fbfbfd; --lm-bg-2: #f5f5f7; --lm-bg-3: #ececf0;
+  --lm-card: rgba(255, 255, 255, .72); --lm-card-solid: #ffffff;
+  --lm-text: #1d1d1f; --lm-text-2: #6e6e73; --lm-text-3: #86868b;     /* 16.3 / 4.9 / 3.5 : 1 on --lm-bg */
+  --lm-line: rgba(0, 0, 0, .08); --lm-line-2: rgba(0, 0, 0, .14);
+  --lm-accent: #0071e3; --lm-accent-2: #7c3aed; --lm-accent-soft: rgba(0, 113, 227, .1);
+  --lm-grad: linear-gradient(100deg, #2563eb 0%, #7c3aed 45%, #db2777 100%);      /* QS video stage .grad */
+  --lm-good: #1f9d55; --lm-good-bg: rgba(52, 199, 89, .13);
+  --lm-warn: #d97706; --lm-warn-bg: rgba(245, 158, 11, .14);
+  --lm-bad: #e5484d; --lm-bad-bg: rgba(255, 59, 48, .1);
+
+  /* shape, elevation, glass */
+  --lm-r-xl: 34px; --lm-r-l: 26px; --lm-r-m: 18px; --lm-r-s: 12px; --lm-r-pill: 999px;   /* QS */
+  --lm-shadow-1: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .06);
+  --lm-shadow-2: 0 2px 6px rgba(0, 0, 0, .05), 0 30px 70px rgba(0, 0, 0, .13);
+  --lm-glass: blur(20px) saturate(170%);               /* QS quiz bar; nav uses saturate(180%) blur(20px) */
+
+  /* motion */
+  --lm-ease: cubic-bezier(.2, .8, .2, 1);              /* QS --ease, LS --ls-ease */
+  --lm-spring: cubic-bezier(.34, 1.56, .64, 1);        /* QS --spring */
+  --lm-fast: .2s; --lm-med: .45s; --lm-slow: 1.1s;
+
+  /* layout */
+  --lm-nav-h: 52px; --lm-maxw: 1120px;                 /* QS, LS */
+
+  font-family: var(--lm-font); font-size: var(--lm-fs-body); line-height: 1.47; letter-spacing: var(--lm-track-body);
+  color: var(--lm-text); background: var(--lm-bg); -webkit-font-smoothing: antialiased;
+}
+
+/* cinema dark (QS [data-theme=dark], LS dark) */
+.lm[data-theme="dark"] {
+  --lm-bg: #000; --lm-bg-2: #0f0f11; --lm-bg-3: #1b1b1e;
+  --lm-card: rgba(28, 28, 30, .72); --lm-card-solid: #1c1c1e;
+  --lm-text: #f5f5f7; --lm-text-2: #a1a1a6; --lm-text-3: #6e6e73;      /* 19.3 / 8.2 / 4.1 : 1 */
+  --lm-line: rgba(255, 255, 255, .1); --lm-line-2: rgba(255, 255, 255, .18);
+  --lm-accent: #0a84ff; --lm-accent-soft: rgba(10, 132, 255, .16);     /* white on it 3.65:1: large or bold labels only */
+  --lm-good: #32d74b; --lm-good-bg: rgba(50, 215, 75, .16);
+  --lm-warn: #ffb340; --lm-warn-bg: rgba(255, 159, 10, .16);
+  --lm-bad: #ff6961; --lm-bad-bg: rgba(255, 69, 58, .16);
+  --lm-shadow-1: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .45);
+  --lm-shadow-2: 0 2px 6px rgba(0, 0, 0, .4), 0 30px 70px rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+/* editorial paper light (LS :not([data-theme=dark])) */
+.lm[data-theme="paper"] {
+  --lm-font: "Helvetica Neue LT Pro", "Helvetica Neue LT Std", "Neue Helvetica", "Helvetica Neue", HelveticaNeue, Helvetica, "Segoe UI", Arial, sans-serif;
+  --lm-bg: #f8f7f3; --lm-bg-2: #f2f0ea; --lm-bg-3: #fffefb; --lm-card: rgba(248, 247, 243, .8); --lm-card-solid: #fffefb;
+  --lm-text: #1c1b18; --lm-text-2: #5d5b55; --lm-text-3: #8e8b84;      /* text-3 3.2:1: large only */
+  --lm-line: rgba(45, 40, 28, .1);
+  --lm-accent: #0a62c9;
+  --lm-good: #1f8a4c; --lm-bad: #c8372d;
+  --lm-r-xl: 22px;
+  --lm-shadow-1: 0 0 0 1px rgba(45, 40, 28, .06), 0 18px 48px -28px rgba(45, 40, 28, .18);
+  --lm-shadow-2: 0 0 0 1px rgba(45, 40, 28, .06), 0 30px 80px -30px rgba(45, 40, 28, .3);
+}
+
+/* studio dark: tools whose output is the star (DR :root) */
+.lm.lm-studio {
+  --lm-font: "Inter", -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --lm-fs-body: 14px; --lm-track-body: -.006em;
+  --lm-bg: #07070a; --lm-bg-2: #0c0c11; --lm-bg-3: #111118;
+  --lm-card: rgba(255, 255, 255, .055); --lm-card-solid: #111118;     /* DR --panel2; panels are white at .032/.055/.085 */
+  --lm-text: #f4f4f6; --lm-text-2: #a1a1ad; --lm-text-3: #6e6e7a;     /* 18.3 / 7.9 / 4.0 : 1 */
+  --lm-line: rgba(255, 255, 255, .075); --lm-line-2: rgba(255, 255, 255, .13);
+  --lm-accent: #a855f7; --lm-accent-2: #6366f1;
+  --lm-grad: linear-gradient(120deg, #6366f1 0%, #a855f7 48%, #ec4899 100%);   /* DR --grad */
+  --lm-good: #34d399; --lm-warn: #fbbf24; --lm-bad: #f87171;
+  --lm-r-l: 16px; --lm-r-m: 12px; --lm-r-s: 10px;
+  --lm-shadow-1: 0 24px 60px -24px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 255, .04) inset;
+  color-scheme: dark;
+}
+
+/* stage dark: immersive canvases with HUD glass (RS bslib theme + .rs-hw) */
+.lm.lm-stage {
+  --lm-font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --lm-bg: #0b0d13; --lm-bg-2: #10131b; --lm-bg-3: #141824;
+  --lm-card: rgba(14, 17, 26, .72); --lm-card-solid: #151a27;
+  --lm-text: #eef0f6; --lm-text-2: #9aa3b8; --lm-text-3: rgba(232, 234, 241, .45);
+  --lm-line: rgba(255, 255, 255, .09);
+  --lm-accent: #f5a524;                                  /* text on it: #1a1206 */
+  --lm-glass: blur(10px) saturate(140%);
+  --lm-r-l: 14px; --lm-r-m: 12px; --lm-r-s: 10px;
+  background: radial-gradient(ellipse at 70% -10%, #1a2035 0%, #0b0d13 55%) fixed;
+  color-scheme: dark;
+}
+
+/* the glass recipe (STYLEGUIDE 4.3), with the fallback LS ships */
+.lm .lm-glass {
+  background: var(--lm-card); border: 1px solid var(--lm-line); box-shadow: var(--lm-shadow-1);
+  -webkit-backdrop-filter: var(--lm-glass); backdrop-filter: var(--lm-glass);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .lm .lm-glass { background: var(--lm-card-solid); }
+}
+/* gradient words */
+.lm .lm-grad-text { background: var(--lm-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* focus (QS) */
+.lm :focus-visible { outline: 3px solid color-mix(in srgb, var(--lm-accent) 55%, transparent); outline-offset: 2px; border-radius: 10px; }
+/* reduced motion: required (LUM-M-02) */
+@media (prefers-reduced-motion: reduce) {
+  .lm *, .lm *::before, .lm *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}

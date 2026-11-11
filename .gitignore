@@ -1,0 +1,6 @@
+node_modules/
+__pycache__/
+.Rproj.user/
+.Rhistory
+/doc/
+/Meta/

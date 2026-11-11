@@ -1,0 +1,71 @@
+/* Taiga bench: approximations of CSS that ships inside R packages (shiny, bslib) and could not be
+   installed offline. Everything app-specific comes from the apps' own stylesheets, loaded after this. */
+
+/* shiny.css (core rules that affect layout) */
+.shiny-input-container:not(.shiny-input-container-inline) { width: 300px; max-width: 100%; }
+.shiny-file-input-progress { visibility: hidden; height: 0; margin: 0; }
+.shiny-html-output:empty, .shiny-text-output:empty { min-height: 0; }
+[data-display-if] { display: none; }                       /* shiny.js evaluates conditions; the bench shows the default state */
+.btn-file { position: relative; overflow: hidden; }
+.shiny-label-null { display: none; }
+.checkbox label, .radio label { display: inline-flex; gap: .4rem; align-items: center; }
+
+/* bslib page / layout (bslib 0.8) */
+html, body { height: 100%; }
+.bslib-page-fill { display: flex; flex-direction: column; height: 100%; margin: 0; }
+.html-fill-container { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.html-fill-container > .html-fill-item { flex: 1 1 auto; min-height: 0; min-width: 0; }
+.bslib-gap-spacing { gap: var(--bslib-spacer, 1rem); }
+.bslib-page-sidebar > .navbar { padding: .5rem 1rem; border-bottom: 1px solid var(--bs-border-color); flex: none; }
+.bslib-page-sidebar > .navbar .navbar-brand { font-size: 1.25rem; margin: 0; padding: 0; }
+.bslib-sidebar-layout { --_sidebar-width: 250px; --_padding: 1.5rem; --_padding-icon: 1.5rem; display: grid !important;
+  grid-template-columns: min(100% - var(--_padding-icon), var(--_sidebar-width)) minmax(0, 1fr); grid-template-rows: 1fr; min-height: 0; position: relative; }
+.bslib-sidebar-layout > .main { grid-column: 2; grid-row: 1; padding: var(--_padding); overflow: auto; min-width: 0; }
+.bslib-sidebar-layout > .sidebar { grid-column: 1; grid-row: 1; border-right: 1px solid var(--bs-border-color); background: var(--bslib-sidebar-bg, rgba(var(--bs-emphasis-color-rgb, 0, 0, 0), .05)); overflow: auto; min-height: 0; }
+.bslib-sidebar-layout > .sidebar > .sidebar-content { display: flex; flex-direction: column; padding: var(--_padding) var(--_padding) var(--_padding) var(--_padding); }
+.bslib-sidebar-layout > .collapse-toggle { position: absolute; left: calc(var(--_sidebar-width) - 11px); bottom: 1.5rem; z-index: 10; width: 22px; height: 22px; padding: 3px;
+  border: 1px solid var(--bs-border-color); border-radius: 50%; background: var(--bs-body-bg); color: var(--bs-body-color); opacity: .8; display: grid; place-items: center; }
+.bslib-sidebar-layout > .collapse-toggle svg { width: 12px; height: 12px; }
+.bslib-card { display: flex; flex-direction: column; }
+.bslib-card > .card-body { overflow: auto; }
+.bslib-mb-spacing { margin-bottom: 0; }
+.accordion .accordion-icon { display: inline-flex; margin-right: .6rem; }
+.accordion .accordion-title { flex: 1; }
+.bslib-input-switch { margin: 0; }
+
+/* ionRangeSlider "shiny" skin (shiny compiles it from the Bootstrap theme; approximated) */
+.irs--shiny { height: 40px; }
+.irs--shiny .irs-line { top: 25px; height: 8px; background: rgba(var(--bs-emphasis-color-rgb, 0, 0, 0), .12); border: 0; border-radius: 8px; }
+.irs--shiny .irs-bar { top: 25px; height: 8px; background: var(--bs-primary); border: 0; }
+.irs--shiny .irs-bar--single { border-radius: 8px 0 0 8px; }
+.irs--shiny .irs-handle { top: 17px; width: 22px; height: 22px; border: 1px solid rgba(0, 0, 0, .25); background: #fff; border-radius: 22px; box-shadow: 0 1px 3px rgba(0, 0, 0, .35); cursor: pointer; }
+.irs--shiny .irs-handle > i { display: none; }
+.irs--shiny .irs-min, .irs--shiny .irs-max { top: 0; padding: 1px 3px; font-size: 10px; line-height: 1.333; border-radius: 3px; color: var(--bs-body-color); background: rgba(var(--bs-emphasis-color-rgb, 0, 0, 0), .1); }
+.irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single { top: 0; padding: 1px 3px; font-size: 11px; line-height: 1.333; border-radius: 3px; color: #fff; background: var(--bs-primary); }
+.irs--shiny .irs-grid { height: 27px; bottom: -1px; } .irs--shiny .irs-grid-pol { background: rgba(var(--bs-emphasis-color-rgb, 0, 0, 0), .3); } .irs--shiny .irs-grid-text { font-size: 9px; color: var(--bs-secondary-color); }
+
+/* bslib::input_dark_mode() is a web component; drawn as a plain icon button on the bench */
+.bench-dark-mode { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent; color: inherit; opacity: .8; padding: 0; }
+
+/* stills: no caret blink, no scrollbars */
+* { caret-color: transparent !important; }
+::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+
+/* a teal analysis module (stand-in layout: encodings | output | filter panel) */
+.bench-module-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr) 280px; gap: 16px; align-items: start; padding: 16px 0; }
+.bench-module-layout .shiny-input-container { width: 100%; }
+.bench-enc-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .75rem; opacity: .7; }
+.bench-filter { border: 0 !important; background: transparent !important; }
+.bench-filter .sidebar-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .6rem; }
+.bench-filter-card { margin-bottom: .6rem; }
+.bench-filter-var { font-size: .8rem; margin-bottom: .25rem; }
+
+/* DT stand-in (BlockR data previews): a plain table of the real first rows */
+.bench-dt { overflow: auto; font-size: 12.5px; }
+.bench-dt table { margin: 0; white-space: nowrap; }
+.bench-dt th { font-weight: 600; font-size: 12px; }
+.bench-dt-foot { font-size: 12px; opacity: .65; padding: 8px 2px; }
+
+/* shiny radio/checkbox groups under bslib (Bootstrap 5 look) */
+.shiny-input-radiogroup .radio-inline, .shiny-input-checkboxgroup .checkbox-inline { display: inline-flex; align-items: center; gap: .35rem; margin-right: .9rem; }
+.shiny-input-radiogroup input[type=radio], .checkbox input[type=checkbox] { accent-color: var(--bs-primary); width: 1em; height: 1em; margin: 0; }

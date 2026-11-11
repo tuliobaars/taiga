@@ -1,0 +1,114 @@
+---
+title: "Getting started with taiga"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with taiga}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+library(taiga)
+```
+
+Taiga is the design system of six applications, in two frameworks: **Lumen** (cinematic,
+high-contrast, glass-driven) and **Neue** (minimalist, high-density enterprise).
+
+## Choose a framework
+
+```{r}
+taiga_frameworks()[, c("framework", "voice", "apps")]
+taiga_choose_framework(reader = "analysts", session = "self-directed", density = "high")
+```
+
+The full guides are installed with the package:
+
+```{r}
+taiga_guides()[, c("topic", "title")]
+```
+
+`taiga_guide("lumen-styleguide")` opens one of them.
+
+## Tokens
+
+Each framework has a token sheet of CSS custom properties, with several themes:
+
+```{r}
+taiga_themes()[, c("framework", "theme")]
+tk <- taiga_tokens("lumen", "dark")
+tk[c("--lm-bg", "--lm-text", "--lm-accent", "--lm-ease")]
+```
+
+Attach a sheet to a Shiny UI or a document with `taiga_dependency("lumen")`, or start a bslib app
+from it with `taiga_bs_theme("lumen", "studio")`.
+
+## Contrast
+
+The styleguides' contrast rules come from an audit you can run on any theme:
+
+```{r}
+a <- taiga_contrast_audit("neue", "light")
+a[a$fg %in% c("--tn-ink-3", "--tn-ink-4"), c("fg", "bg", "ratio", "wcag")]
+taiga_contrast("#ffffff", "#0e8f83")
+```
+
+## One front end, three formats
+
+Every Taiga project ships its front end as a Shiny app, a Quarto document and a standalone HTML
+file (`taiga_guide("delivery")`). The package includes a tiny example front end:
+
+```{r}
+ex <- taiga_example()
+taiga_check_assets(c(ex$css, ex$js))$ok
+data <- list(title = "Hello, Taiga", items = c("Shiny", "Quarto", "HTML"))
+```
+
+Standalone HTML:
+
+```{r}
+html <- taiga_export_html(
+  taiga_fragment("hello", css = ex$css, js = ex$js, data = data, framework = "lumen"),
+  file.path(tempdir(), "hello.html"), title = "Hello"
+)
+basename(html)
+```
+
+Quarto (render the result with `quarto render`):
+
+```{r}
+qmd <- taiga_export_quarto(
+  taiga_fragment("hello", mode = "quarto", css = ex$css, js = ex$js, data = data, framework = "lumen"),
+  tempfile("hello-quarto-"), title = "Hello", before = "The same front end, inside a document."
+)
+cat(readLines(qmd, n = 10), sep = "\n")
+```
+
+Shiny:
+
+```{r, eval = FALSE}
+app <- taiga_shiny_app(
+  taiga_fragment("hello", mode = "shiny", css = ex$css, js = ex$js, data = data, framework = "lumen"),
+  server = function(input, output, session) observeEvent(input$hello_msg, message("from the browser")),
+  title = "Hello"
+)
+shiny::runApp(app)
+```
+
+What each format can do:
+
+```{r}
+taiga_capabilities()
+```
+
+## The applications
+
+```{r}
+taiga_apps()[, c("app", "framework", "dialect", "shiny", "quarto", "html")]
+x <- taiga_extracted("QuantSkill")
+x$n_custom_properties
+head(x$easings, 3)
+```

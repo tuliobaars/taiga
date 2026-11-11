@@ -1,0 +1,34 @@
+Package: taiga
+Title: The Taiga Design System for 'Shiny', 'Quarto' and HTML
+Version: 0.1.0
+Authors@R:
+    person("Taiga", "maintainers", role = c("aut", "cre"), email = "taiga@example.org")
+Description: The Taiga design system, extracted from six Taiga applications
+    (QuantSkill, lumenJourney, DirectoR, RockShiny, teal_neue, BlockR), in two
+    frameworks: 'Lumen' (cinematic, high-contrast, glass-driven) and 'Neue'
+    (minimalist, high-density enterprise). Ships the styleguides, the
+    requirements for new projects and the delivery model as guides; design
+    token sheets as CSS files, R vectors, an HTML dependency and a 'bslib'
+    theme; the design values extracted from each application; WCAG contrast
+    tools; and helpers for the triple-format delivery model, in which one
+    front end ships as a 'Shiny' app, a 'Quarto' document and a standalone
+    HTML file.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends:
+    R (>= 4.1)
+Imports:
+    grDevices,
+    htmltools (>= 0.5.0),
+    jsonlite,
+    utils
+Suggests:
+    bslib (>= 0.5.0),
+    knitr,
+    rmarkdown,
+    shiny (>= 1.7.0),
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

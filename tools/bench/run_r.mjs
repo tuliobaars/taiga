@@ -29,7 +29,7 @@ for (const [h, v] of mounts) await copyIn(path.resolve(h), v);
 await mkdirp('/bench/out');
 await webR.FS.writeFile('/bench/driver.R', new Uint8Array(fs.readFileSync(script)));
 const shelter = await new webR.Shelter();
-const res = await shelter.captureR(`tryCatch(source('/bench/driver.R', echo = FALSE), error = function(e) { cat('R ERROR:', conditionMessage(e), '\\n'); print(sys.calls()) })`,
+const res = await shelter.captureR(`tryCatch(source('/bench/driver.R', echo = FALSE), error = function(e) { cat('R ERROR:', conditionMessage(e), '\\n'); if (!inherits(e, 'quiet_error')) print(sys.calls()) })`,
   { captureStreams: true, captureConditions: true });
 let failed = false;
 for (const o of res.output) {

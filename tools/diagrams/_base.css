@@ -1,0 +1,13 @@
+/* shared look of the Taiga guide diagrams (rendered to images by tools/guide_images.py) */
+@font-face { font-family: 'Inter'; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { width: 1600px; font-family: Inter, system-ui, sans-serif; color: #1d1d1f; background: #fbfbfd; -webkit-font-smoothing: antialiased; letter-spacing: -.01em; }
+.wrap { padding: 48px 56px 52px; }
+h1 { font-size: 34px; font-weight: 750; letter-spacing: -.035em; }
+.sub { color: #6e6e73; font-size: 17px; margin-top: 6px; }
+.mono, code { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: .86em; letter-spacing: 0; }
+code { background: #ececf0; padding: 2px 6px; border-radius: 6px; }
+.card { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 22px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #86868b; }
+.shiny { --c: #0e8f83; --soft: #e2f3f0; } .quarto { --c: #7c3aed; --soft: #efe9fd; } .html { --c: #0071e3; --soft: #e6f0fc; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 1px; }

@@ -3,8 +3,8 @@
 #' The Taiga guides
 #'
 #' The styleguides, the requirements for new projects and the delivery model, installed as Markdown.
-#' The image links in the guides point at the six application folders of the Taiga workspace, next to
-#' the package sources.
+#' Their pictures (application screenshots, format comparisons and diagrams) are installed with them,
+#' in `img/thumb/` and `img/full/`: every thumbnail links to the full-size image.
 #'
 #' @return A data frame with `topic`, `title` and `path`.
 #' @seealso [taiga_guide()]
@@ -28,7 +28,7 @@ taiga_guides <- function() {
 #'
 #' @param topic One of the topics of [taiga_guides()]: `"lumen-styleguide"`,
 #'   `"lumen-requirements"`, `"neue-styleguide"`, `"neue-requirements"` or `"delivery"`.
-#' @param open Show the guide ([utils::file.show()])? The default shows it in interactive sessions.
+#' @param open Show the guide ([file.show()])? The default shows it in interactive sessions.
 #' @return Invisibly, the path of the Markdown file.
 #' @examples
 #' p <- taiga_guide("delivery", open = FALSE)
@@ -39,6 +39,6 @@ taiga_guide <- function(topic = c("lumen-styleguide", "lumen-requirements", "neu
   topic <- match.arg(topic)
   g <- taiga_guides()
   path <- g$path[g$topic == topic]
-  if (isTRUE(open)) utils::file.show(path, title = g$title[g$topic == topic])
+  if (isTRUE(open)) file.show(path, title = g$title[g$topic == topic])
   invisible(path)
 }

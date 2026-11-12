@@ -16,11 +16,13 @@ The automated checks are in `tools/verify.py` (workspace) and `tools/check.sh` (
 | Triple-format delivery | Specified in every project's README and DESIGN.md. Shipped today: QuantSkill and lumenJourney (story). Specified with a plan, not yet built: DirectoR, RockShiny, teal_neue, BlockR. |
 | Promo video | `DirectoR/media/DirectoR_teaser_30s.mp4`, made with QuantSkill's video utility: 1920 × 1080, 60 fps, H.264 High + AAC 48 kHz, 30.0 s, −14.0 LUFS, −1.9 dBTP, with a poster and `media/README.md` |
 | Links | 226 relative links and images in all 70 Markdown files of the workspace: all resolve (`verify.py`) |
-| R package | `taiga` 0.1.0 (this folder): 26 exported functions, 27 help pages, a vignette, 90 test expectations; checked in webR by `tools/check.sh` (§8) |
+| R package | `taiga` 0.1.0 (this folder): 26 exported functions, 27 help pages, a vignette, 134 test expectations. **`R CMD check`: Status OK** (R 4.3.3 and R 4.5.2; `--as-cran`: only the offline time NOTE). `tools/check.sh` runs it where R is installed, and a webR check otherwise (§8) |
 | Source code | **Application code unchanged.** Against the workspace's baseline commit, the only code files that differ are QuantSkill's two screenshot generators (`dev/screens.py`, `dev/simulate/team_reports.py`), changed at your request to write JPEG (§9). The other modified files are documentation: the six `README.md`, `teal_neue/preview/README.md` and `RockShiny/docs/IMPLEMENTATION_GUIDE.md` (§5, §9). |
 
 ## 2. Environment, and how it shaped the work
 
+- **Later, R 4.3.3 from the Ubuntu archive.** The Ubuntu package archive turned out to be reachable. It was
+  used to run the real `R CMD check` of the taiga package (§8.1). The screenshots below predate it.
 - **No R runtime, and no way to install one.** CRAN, r-universe, Posit Package Manager, conda-forge,
   GitHub and the webR package repository were unreachable. PyPI and npm were reachable. So:
   - QuantSkill and lumenJourney were photographed from their shipped standalone HTML builds (the same
@@ -128,28 +130,106 @@ The design system is an R package, `taiga` (folder `taiga-design-system/`, like 
 `inst/extdata/tokens/`, and an example front end in `inst/examples/hello/`. Development tooling stays
 in `tools/` (build-ignored).
 
-No R runtime was available, so `R CMD check` could not run. Instead:
+### 8.1 Real `R CMD check`
 
-- **Documentation.** `man/*.Rd` and `NAMESPACE` are generated from the roxygen comments by
-  `tools/document.py`. DESCRIPTION sets `Roxygen: list(markdown = TRUE)`, so `devtools::document()`
-  regenerates them from the same comments.
-- **Checks** (`tools/check.sh`, in webR; htmltools and jsonlite through the bench stand-in, testthat through
-  QuantSkill's `dev/tests/testthat_shim.R`). Result: **CHECK: OK**.
-  - DESCRIPTION fields.
-  - All 8 R files parse and are ASCII.
-  - `tools::checkRd` passes on all 27 Rd files.
-  - Every export exists and is documented.
-  - All examples run (26 help pages; `\dontrun` for Shiny and bslib).
-  - The vignette's 10 evaluated chunks run.
-  - 90 test expectations pass, 0 fail.
-- **The checks found a bug.** `taiga_css_vars()` kept multi-line comments in selectors. It was fixed and
-  a test was added.
-- **End to end.** `taiga_export_html()` output of the example front end opens in Chromium without errors,
-  in daylight and dark themes. `taiga_export_quarto()` writes a valid `.qmd` (`embed-resources`, a raw-HTML
-  block). It could not be rendered, because `quarto` is not installed here.
-- **To do where R is available.** Run `devtools::document()`, `devtools::test()` and
-  `R CMD check --as-cran`. The Shiny and bslib paths (`taiga_shiny_app()`, `taiga_bs_theme()`,
-  `taiga_dependency()` in a live page) were only checked against the stand-ins.
+**R 4.3.3** was installed without root privileges. Its binary packages came from the Ubuntu 24.04
+archive (`r-base-core`, and `r-cran-*` for htmltools, jsonlite, knitr, rmarkdown, testthat, shiny,
+bslib, roxygen2 and devtools), extracted into a private folder. pandoc 3.1.3 was already installed.
+CRAN itself is still unreachable. Results:
+
+| Check | Result |
+|---|---|
+| `bash tools/check.sh`, on a standalone copy of the folder (no sibling projects, no `node_modules`) | **Status: OK**. 108 test expectations pass; 1 test is skipped on CRAN (compiling 8 bslib themes) |
+| `R CMD check --as-cran` | 1 NOTE: "unable to verify current time" (no network) |
+| `devtools::check()` | 0 errors, 0 warnings, 1 note (the same) |
+| `devtools::test()` | 134 expectations pass, 0 fail (R 4.3.3) |
+| `bash tools/check.sh` with **R 4.5.2** (knitr 1.51, rmarkdown 2.30, testthat 3.3.2, jsonlite 2.0.0, from the Ubuntu 26.04 archive) | **Status: OK** |
+| `roxygen2::roxygenise()` (7.3.1) | No warnings. `man/` and `NAMESPACE` are now roxygen2's own output, and `devtools::document()` leaves them unchanged |
+
+**What the real check found** (none of it was visible to the webR check):
+
+1. **`utils::file.show` does not exist.** `file.show()` is in base R. This gave two WARNINGs, in the code
+   and in the Rd cross-references. Fixed in `taiga_guide()`.
+2. **A test assumed jsonlite's output.** Real jsonlite writes `</script>` in a string as
+   `\u003c\/script>`. The test now checks that no `<` is left in the data and that the value
+   round-trips.
+3. **Tests read UTF-8 files without declaring the encoding.** They failed in a non-UTF-8 locale. Fixed.
+4. **roxygen2 rejected the unbalanced brace** in a `@param` of `taiga_css_vars()`. Reworded.
+5. **`taiga_shiny_app()` did not work with its default server.** The default was
+   `function(input, output, session) NULL`. Shiny skips a server whose body is `NULL`, so the session
+   failed with `could not find function "server"`. The default now returns `invisible(NULL)`.
+   - Extra UI now comes in `...` before `server`, so `taiga_shiny_app(f, taiga_dependency("lumen"))` no
+     longer binds the dependency to `server`.
+   - A server that is not a function is now an error.
+   - These are covered by a new test.
+
+**End to end, in real R:**
+- **Shiny.** The example app runs under `shiny::runApp()`. Chromium loads it with no errors, the
+  token sheet is served by `taiga_dependency()`, and the button's message reaches the server
+  (`input$hello_msg`).
+- **bslib.** `taiga_bs_theme()` compiles with bslib for all 8 themes.
+- **Quarto.** Quarto could not be installed, so `taiga_export_quarto()` output was rendered with
+  pandoc as a stand-in. The raw-HTML block passes through, and the front end runs with no errors
+  between the commentary before and after it.
+
+### 8.2 The errors reported on R 4.6.0 (macOS)
+
+- **`test-delivery.R:4`, "Expected `s` to match string \"\\u003c/script>\"".** That line is from the
+  previous version of the tests. The current `test-delivery.R` no longer has that expectation; it checks
+  that no `<` is left in the data and that the value round-trips. The reported counts (180 expectations,
+  99 in "frameworks") are also those of the previous version. The copy that was tested predates the
+  fixes of §8.1.
+- **"installing vignettes failed … doc/index.html", after "Removed empty directory 'taiga/inst/doc'".**
+  **Cause found, from the `taiga.Rcheck` folder that was sent.** The files were dated in the future.
+  - **What the tarball showed.** Its `vignettes/` had `taiga.html` and `taiga.R`, but no `taiga.Rmd`.
+    Its `build/vignette.rds` listed 0 vignettes, and `inst/doc` was empty. `.Rbuildignore` was not the
+    cause: it matched neither file.
+  - **Mechanism.** `tools::buildVignettes()`, which `R CMD build` runs, clean-up step deletes every file in
+    `vignettes/` that is newer than the start of the build and is not an output. With future-dated
+    files, that includes the vignette source itself.
+  - **Why the dates were in the future.** Zip files store local time without a time zone. Files zipped
+    in UTC and unzipped in a time zone behind UTC, such as Brazil (UTC−3), get dates up to several hours
+    ahead of the clock.
+  - **Reproduced here.** Dating every file 3 hours ahead gives the same tarball: no `.Rmd`, an empty
+    `inst/doc`, and "Removed empty directory 'taiga/inst/doc'".
+  - **Fixes.**
+    - `tools/check.sh` resets future dates to now before building (only the dates change).
+    - The new test "no package file is dated in the future" (`test-build.R`) fails under
+      `devtools::test()` with the one-line fix:
+      `Sys.setFileTime(list.files(recursive = TRUE, all.files = TRUE), Sys.time())`.
+    - After that command, the future-dated copy passes `devtools::test()` (137 pass) and
+      `devtools::check()` (0 errors, 0 warnings, 1 offline NOTE).
+    - The delivered files are dated a day back, so a time-zone shift cannot put them in the future.
+  - **The sent copy also mixed versions.** It had the first turn's top-level `lumen/`, `neue/`, `tokens/`
+    and `DELIVERY_MODEL.md`, and the previous tests. Those folders would give a "non-standard top-level"
+    NOTE; they now live in `inst/`. It also had a `renv.lock`, so `^renv$` and `^renv\.lock$` were added
+    to `.Rbuildignore`.
+- **The picture test failing for every picture** (reported earlier): `inst/guides/img/` was missing from
+  that copy. It passes in the latest report.
+- **"roxygen2 version (8.0.0) doesn't match declared (7.3.1)".** This is a notice from devtools: it
+  does not regenerate the docs. The committed docs are roxygen2 7.3.1 output.
+  `bash tools/check.sh --document` (or `devtools::document()`) regenerates them with 8.0.0.
+
+### 8.3 Without R: the webR fallback
+
+`tools/check.sh --webr` runs `tools/check_webr.R` in webR, and runs `npm install` in `tools/bench` on
+first use. Its stand-ins ship in the package's `tools/`: `bench/shim.R` for htmltools and jsonlite, and
+`testthat_shim.R` for testthat. It checks:
+- DESCRIPTION;
+- parsing and ASCII of the R code;
+- `tools::checkRd`;
+- exports;
+- codoc: usage against each function's argument names and defaults, and that every argument is
+  documented;
+- undefined globals;
+- that every `pkg::fun` is exported (it now catches `utils::file.show`);
+- examples;
+- the vignette's chunks;
+- the tests.
+
+Result: CHECK: OK (106 expectations; the Shiny and bslib tests are skipped, because those packages
+are not in webR). It exits non-zero when anything fails; this was tested with a planted wrong default,
+a misspelt argument, an undefined variable, a bad `pkg::fun` and a failing test.
 
 ## 9. `.png` references changed to the JPEG files
 
@@ -167,4 +247,33 @@ Left unchanged, because they are not references to missing files: `.png` names i
 temporary or test files, file names inside quiz questions, remote URLs, and files that exist as `.png`
 (`favicon.png`, the video posters, lumenJourney's `man/figures/story-*.png`). After the changes, every
 relative link and image in every Markdown file of the workspace resolves.
+
+## 10. Pictures in the guides and the README
+
+- **Why pictures were missing.** The guides and the README pointed at images in the six project folders.
+  lumenJourney, teal_neue and BlockR ignore `docs/` in git, and the links left the package folder. So the
+  images were missing wherever the package is viewed on its own, installed, or from those repositories.
+- **Fix.** The pictures now live in the package (`inst/guides/img/`, 34 images, 3.7 MB), built by
+  `tools/guide_images.py` from the references in the documents. Each is a thumbnail (`thumb/`, 640 px;
+  diagrams 1000 px) that links to the full image (`full/`, 1280 px; diagrams 1600 px), so every picture can
+  be clicked to expand it.
+- **Delivery model guide.** It now has:
+  - one picture per format (QuantSkill in Shiny, Quarto and HTML);
+  - reference implementations by framework, with a picture for every app × format. Lumen:
+    QuantSkill, lumenJourney, DirectoR, RockShiny. Neue: teal_neue, BlockR. Formats that are specified but
+    not built are shown as tiles marked "Planned · not yet built";
+  - an illustrated architecture (`tools/diagrams/architecture.html`) and a diagram of the Shiny protocol
+    (`tools/diagrams/shiny-protocol.html`). The protocol's message names were checked against QuantSkill's
+    code (`hello`, `init`, `start`, `grade`, `checkpoint`, `attach`, `resume`, `finish`).
+- **How the format pictures were made** (`tools/screens/formats.py`):
+  - QuantSkill HTML: its standalone build.
+  - QuantSkill Quarto: the render shipped in `QuantSkill/quarto/` (Quarto 1.9.38, front end v2.0.0).
+  - QuantSkill Shiny: its Shiny front end against its own protocol stand-in, `dev/simulate/cohort.py`,
+    which its video pipeline also uses.
+  - lumenJourney HTML and Shiny: `build.mjs`, the Shiny build with the mock `window.Shiny` its dev notes
+    describe. Its Study setup then shows "Upload files" and "Folder on the server".
+  - lumenJourney Quarto: `inst/quarto/lumen-story.html` (Quarto 1.9.38).
+- **Checks.** A package test checks that every picture of the installed guides exists, that none points
+  outside the package, and that every thumbnail links to a full image (180 expectations pass). `verify.py`
+  checks the same for the README, and finds all 250 links of the workspace's 70 Markdown files resolve.
 

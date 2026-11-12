@@ -2,18 +2,30 @@
 
 Every Taiga project ships **one front end, three ways**:
 
-| Format | What the user gets | Typical use |
-|---|---|---|
-| **Shiny** | A running app: `pkg::run_app()` / `pkg_app()`, deployable to Posit Connect, Shiny Server or shinyapps.io | Team use, server-side computation, persistence, anything secret |
-| **Quarto** | A document: a `.qmd` (plus include files) that renders to HTML with the same front end, between the author's own prose | Publishing, reports, teaching material, commentary around the tool |
-| **Standalone HTML** | One self-contained `.html` file: data, styles, scripts and fonts inline, with no server and no network | E-mail, intranets, document systems, offline, archiving |
+| | **Shiny** | **Quarto** | **Standalone HTML** |
+|---|---|---|---|
+| What the user gets | A running app: `pkg::run_app()` / `pkg_app()`, deployable to Posit Connect, Shiny Server or shinyapps.io | A document: a `.qmd` (plus include files) that renders to HTML with the same front end, between the author's own prose | One self-contained `.html` file: data, styles, scripts and fonts inline, with no server and no network |
+| Typical use | Team use, server-side computation, persistence, anything secret | Publishing, reports, teaching material, commentary around the tool | E-mail, intranets, document systems, offline, archiving |
+| Example: QuantSkill | [![QuantSkill in Shiny](img/thumb/format-qs-shiny.jpg)](img/full/format-qs-shiny.jpg)<br><sub>Graded on the server: "Saved" indicator, resume codes</sub> | [![QuantSkill in Quarto](img/thumb/format-qs-quarto.jpg)](img/full/format-qs-quarto.jpg)<br><sub>The team's own Markdown on the Method page</sub> | [![QuantSkill as standalone HTML](img/thumb/format-qs-html.jpg)](img/full/format-qs-html.jpg)<br><sub>One offline file ("Standalone HTML")</sub> |
 
-This is the delivery model QuantSkill and lumenJourney's study story already follow. This document turns
-it into requirements for every Taiga project and states the status of each app.
+*Click a picture to expand it.* QuantSkill and lumenJourney's study story already follow this model.
+This document turns it into requirements for every Taiga project and states the status of each app.
 
 ---
 
 ## 1. Reference implementations
+
+Every Taiga app is a reference for at least one format. A picture marked **Planned** is a format that
+is specified (with a plan in §5.1) but not built yet.
+
+### 1.1 Lumen
+
+| App | Shiny | Quarto | Standalone HTML |
+|---|---|---|---|
+| **QuantSkill** | [![QuantSkill, Shiny](img/thumb/format-qs-shiny.jpg)](img/full/format-qs-shiny.jpg) | [![QuantSkill, Quarto](img/thumb/format-qs-quarto.jpg)](img/full/format-qs-quarto.jpg) | [![QuantSkill, standalone HTML](img/thumb/format-qs-html.jpg)](img/full/format-qs-html.jpg) |
+| **lumenJourney** (study story) | [![lumenJourney story, Shiny](img/thumb/format-ls-shiny.jpg)](img/full/format-ls-shiny.jpg) | [![lumenJourney story, Quarto](img/thumb/format-ls-quarto.jpg)](img/full/format-ls-quarto.jpg) | [![lumenJourney story, standalone HTML](img/thumb/format-ls-html.jpg)](img/full/format-ls-html.jpg) |
+| **DirectoR** | [![DirectoR, Shiny](img/thumb/DirectoR-01-library.jpg)](img/full/DirectoR-01-library.jpg) | [![DirectoR, Quarto: planned](img/thumb/planned-DirectoR-quarto.jpg)](img/full/planned-DirectoR-quarto.jpg) | [![DirectoR, HTML: planned](img/thumb/planned-DirectoR-html.jpg)](img/full/planned-DirectoR-html.jpg) |
+| **RockShiny** | [![RockShiny, Shiny](img/thumb/RockShiny-01-highway.jpg)](img/full/RockShiny-01-highway.jpg) | [![RockShiny, Quarto: planned](img/thumb/planned-RockShiny-quarto.jpg)](img/full/planned-RockShiny-quarto.jpg) | [![RockShiny, HTML: planned](img/thumb/planned-RockShiny-html.jpg)](img/full/planned-RockShiny-html.jpg) |
 
 - **QuantSkill**: `srcjs/` → `data-raw/build.{R,py}` → three targets from one source:
   `inst/app/www/quantskill.{js,css}` (Shiny), `inst/quarto/_quantskill-{head,body}.html` +
@@ -21,27 +33,57 @@ it into requirements for every Taiga project and states the status of each app.
   `quantskill_app()`, `qs_export_quarto()`, `qs_export_html()`. The front end picks a **transport**
   (`srcjs/js/30-transport.js`): `LocalTransport` (HTML and Quarto: bank embedded, graded in the browser)
   or `ShinyTransport` (bank sent *without* answer keys, every answer graded and stored server-side, over a
-  request/response protocol: `input$qs_msg` ↔ custom message `qs-msg`).
+  request/response protocol: `input$qs_msg` ↔ custom message `qs-msg`; see §2.2).
 - **lumenJourney story**: `story_html(data, standalone, mode = c("html", "shiny", "quarto"))` builds
   the same fragment for every host (root `<div class="lumen-story" data-mode=…>`, inline CSS, JSON data
   and profiles in `<script type="application/json">`, inline JS). R API: `export_story_html()`,
   `run_story()`, `story_quarto()` / `story_quarto_block()`, plus `export_story_pdf()`. A Shiny bridge
-  (`inst/story/lumen-story-shiny.js`) adds uploads and server folders.
+  (`inst/story/lumen-story-shiny.js`) adds uploads and server folders (shown in the Shiny picture).
+- **DirectoR** is the reference for a **Shiny studio**: an app shell (`R/ui.R`, `director.css/js`) whose
+  custom inputs and `dr-*` custom messages drive a long-running engine through jobs. Its Quarto and HTML
+  formats will carry the *films* it makes (§5.1).
+- **RockShiny** is the reference for a **custom Shiny output binding**: the note highway
+  (`inst/highway/binding.js`) is dependency-free JavaScript fed by chart JSON (`chart_json()`), driven by
+  `rs-highway` messages. The same binding and JSON can be inlined into a standalone file or a Quarto block
+  (§5.1).
+
+### 1.2 Neue
+
+| App | Shiny | Quarto | Standalone HTML |
+|---|---|---|---|
+| **teal_neue** | [![teal_neue, Shiny](img/thumb/teal_neue-01-home.jpg)](img/full/teal_neue-01-home.jpg) | [![teal_neue, Quarto: planned](img/thumb/planned-teal_neue-quarto.jpg)](img/full/planned-teal_neue-quarto.jpg) | [![teal_neue, HTML: planned](img/thumb/planned-teal_neue-html.jpg)](img/full/planned-teal_neue-html.jpg) |
+| **BlockR** | [![BlockR, Shiny](img/thumb/BlockR-01-canvas-template.jpg)](img/full/BlockR-01-canvas-template.jpg) | [![BlockR, Quarto: planned](img/thumb/planned-BlockR-quarto.jpg)](img/full/planned-BlockR-quarto.jpg) | [![BlockR, HTML: planned](img/thumb/planned-BlockR-html.jpg)](img/full/planned-BlockR-html.jpg) |
+
+- **teal_neue** is the reference for a **layer over a host framework**: teal's Shiny app with a header,
+  command bar and overview added through one `htmlDependency` (`teal_neue.css/js`) and an index travelling
+  as JSON in the page. The study overview is computed in R (`R/overview.R`) and drawn in the browser, so it
+  can be exported as is. Every TLG output has runnable code for a Quarto report (§5.1).
+- **BlockR** is the reference for an **editor that round-trips code**: the canvas (`blockr_canvas.js`,
+  plain JavaScript) exchanges a graph and block statuses with R (`blockr-graph`, `blockr-status`), and
+  `blockr_compile()` writes the canvas back as R (and SAS). The canvas runs without Shiny, given a graph and
+  a status (§5.1).
+
+*The Shiny pictures of DirectoR, RockShiny, teal_neue and BlockR come from test benches built from each
+app's own UI code (see `VERIFICATION.md` in the package sources). QuantSkill's Quarto picture is the render
+shipped in its `quarto/` folder (Quarto 1.9.38, front end v2.0.0). lumenJourney's Quarto picture is
+`inst/quarto/lumen-story.html`: by design, it looks like the HTML file.*
 
 ## 2. Architecture
 
-```
-            ┌───────────────────────── one front end (no dependencies) ─────────────────────────┐
-            │  app.js + app.css (+ fonts)   ·   reads its payload from <script type="application/json">│
-            │  mode = data-mode / transport:  "html" | "quarto" | "shiny"                           │
-            └─────────────┬───────────────────────────────┬───────────────────────────┬──────────┘
-                          │                               │                           │
-        Shiny host  ──────┘        Quarto host ───────────┘      HTML host ───────────┘
-        htmlDependency (www/)      include-in-header/body, or     everything inline in one file
-        payload from the server    a raw-HTML block from R        (fonts as base64 data URIs)
-        protocol: input$<id>_msg   payload embedded at render     payload embedded at export
-                  ↔ '<id>-msg'
-```
+### 2.1 One front end, three hosts
+
+[![Architecture: one front end, three hosts](img/thumb/diagram-architecture.jpg)](img/full/diagram-architecture.jpg)
+
+One source (`app.js`, `app.css`, fonts, a JSON payload) is built by one command into three targets. The
+front end reads `data-mode` and picks its transport: in HTML and Quarto it works alone in the browser,
+and in Shiny it talks to the server. The rules that make one front end safe in every host (DLV-05, DLV-06,
+DLV-07, DLV-20) are listed in §3. The taiga package implements them: `taiga_fragment()`,
+`taiga_export_html()`, `taiga_export_quarto()`, `taiga_shiny_app()`, `taiga_json_script()`,
+`taiga_check_assets()`.
+
+### 2.2 The Shiny host: one input, one custom message
+
+[![The Shiny host: one input, one custom message](img/thumb/diagram-shiny-protocol.jpg)](img/full/diagram-shiny-protocol.jpg)
 
 ## 3. Requirements
 

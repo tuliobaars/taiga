@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><style>
+.top { display: grid; grid-template-columns: 460px 1fr; gap: 28px; margin-top: 30px; align-items: stretch; }
+.src { padding: 26px 28px; position: relative; }
+.src h2 { font-size: 22px; font-weight: 700; margin: 8px 0 14px; letter-spacing: -.02em; }
+.files { display: grid; gap: 8px; }
+.file { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #f5f5f7; font-size: 15px; }
+.file b { font-weight: 650; } .file span { color: #6e6e73; font-size: 13.5px; margin-left: auto; }
+.file i { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-style: normal; font-size: 12px; font-weight: 800; }
+.build { margin-top: 16px; padding: 12px 14px; border-radius: 12px; border: 1.5px dashed #c7c7cc; font-size: 14.5px; color: #3a3a3c; }
+.hosts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; }
+.host { padding: 18px 18px 20px; border-top: 5px solid var(--c); display: flex; flex-direction: column; gap: 12px; }
+.host h3 { font-size: 21px; font-weight: 750; letter-spacing: -.02em; display: flex; align-items: center; }
+.host .entry { font-size: 14px; color: var(--c); font-weight: 650; }
+.host img { width: 100%; border-radius: 12px; border: 1px solid rgba(0,0,0,.08); display: block; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.host ul { list-style: none; display: grid; gap: 7px; font-size: 14.5px; color: #3a3a3c; }
+.host li { padding-left: 18px; position: relative; line-height: 1.35; }
+.host li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 7px; height: 7px; border-radius: 2px; background: var(--c); }
+.flow { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 26px 0 0; font-size: 15px; color: #3a3a3c; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: var(--soft); color: var(--c); font-weight: 650; font-size: 14.5px; }
+.rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+.rule { padding: 14px 16px; border-radius: 16px; background: #fff; border: 1px solid rgba(0,0,0,.07); font-size: 14px; color: #3a3a3c; line-height: 1.4; }
+.rule b { display: block; font-size: 12px; letter-spacing: .06em; color: #86868b; margin-bottom: 4px; }
+.src::after { content: "\2192"; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); font-size: 28px; color: #86868b; }
+</style></head><body><div class="wrap">
+<h1>One front end, three hosts</h1>
+<div class="sub">The Taiga delivery model. Reference implementation: QuantSkill (the pictures are its three formats).</div>
+<div class="top">
+  <div class="card src">
+    <div class="eyebrow">Source &middot; one front end, no dependencies</div>
+    <h2>srcjs/ &rarr; app.js + app.css</h2>
+    <div class="files">
+      <div class="file"><i style="background:#f59e0b">JS</i><b>app.js</b><span>reads data-mode, picks its transport</span></div>
+      <div class="file"><i style="background:#2563eb">CSS</i><b>app.css</b><span>namespaced under one root class</span></div>
+      <div class="file"><i style="background:#6e6e73">Aa</i><b>fonts</b><span>shipped, never from a CDN</span></div>
+      <div class="file"><i style="background:#1f9d55">{ }</i><b>data payload</b><span>JSON, every &lt; as \u003c</span></div>
+    </div>
+    <div class="build"><b>One build command</b> writes all three targets: <span class="mono">Rscript data-raw/build.R</span>. The targets are never edited by hand.</div>
+  </div>
+  <div class="hosts">
+    <div class="card host shiny"><h3><span class="dot"></span>Shiny</h3><div class="entry mono">run_app() &middot; &lt;pkg&gt;_app()</div>
+      <img src="file:///tmp/taiga-formats/qs-shiny.png">
+      <ul><li>assets via one <b>htmlDependency</b></li><li>payload from the server, <b>without secrets</b></li><li>protocol: <span class="mono">input$&lt;id&gt;_msg</span> &harr; <span class="mono">'&lt;id&gt;-msg'</span></li><li>grading, persistence, resume codes</li></ul></div>
+    <div class="card host quarto"><h3><span class="dot"></span>Quarto</h3><div class="entry mono">export_quarto() &middot; *_quarto_block()</div>
+      <img src="file:///tmp/taiga-formats/qs-quarto.png">
+      <ul><li>raw-HTML block or include files</li><li>payload embedded at render</li><li><span class="mono">embed-resources: true</span></li><li>the author's markdown around the tool</li></ul></div>
+    <div class="card host html"><h3><span class="dot"></span>Standalone HTML</h3><div class="entry mono">export_html()</div>
+      <img src="file:///tmp/taiga-formats/qs-html.png">
+      <ul><li>everything inline in <b>one file</b></li><li>fonts as data URIs</li><li>payload embedded at export</li><li>offline, e-mailable, archivable</li></ul></div>
+  </div>
+</div>
+<div class="flow"><span>The front end chooses how to talk from <span class="mono">data-mode</span>:</span>
+  <span class="pill html" style="--soft:#e6f0fc">LocalTransport &middot; html, quarto &middot; graded in the browser</span>
+  <span class="pill shiny">ShinyTransport &middot; shiny &middot; graded on the server</span></div>
+<div class="rules">
+  <div class="rule"><b>DLV-05 &middot; DATA</b>JSON in <span class="mono">&lt;script type="application/json"&gt;</span>, <span class="mono">&lt;</span> escaped</div>
+  <div class="rule"><b>DLV-06 &middot; ASSETS</b>ASCII only, no literal markup tags a host could re-parse</div>
+  <div class="rule"><b>DLV-07 &middot; THEME</b>initial theme in the markup: no flash of the wrong theme</div>
+  <div class="rule"><b>DLV-20 &middot; SECRETS</b>anything secret stays in Shiny; HTML and Quarto carry only what readers may see</div>
+</div>
+</div></body></html>

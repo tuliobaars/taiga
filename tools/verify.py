@@ -97,7 +97,14 @@ for f in md:
         n_links += 1
         path = target.split("#")[0]
         if path and not os.path.exists(os.path.normpath(os.path.join(base, path))): broken.append("%s -> %s" % (f, target))
-res["links"] = {"markdown_files": len(md), "relative_links_checked": n_links, "broken": broken}
+# the package's documents must not depend on files outside the package folder (images included)
+outside = []
+for f in ["taiga-design-system/README.md"] + [m for m in md if m.startswith("taiga-design-system/inst/guides/")]:
+    base = os.path.dirname(os.path.join(WS, f))
+    for target in re.findall(r"!\[[^\]]*\]\(([^)\s]+)\)", open(os.path.join(WS, f), encoding="utf-8").read()):
+        if not os.path.normpath(os.path.join(base, target)).startswith(os.path.join(DS, "")): outside.append("%s -> %s" % (f, target))
+res["links"] = {"markdown_files": len(md), "relative_links_checked": n_links, "broken": broken, "package_images_outside_package": outside}
+if outside: problems.append("package documents use images outside the package: %s" % outside[:5])
 if broken: problems.append("links: %s" % broken[:10])
 
 # 4 ----------------------------------------------------------------------------------------------- video

@@ -25,7 +25,7 @@ taiga_css <- function(framework = c("lumen", "neue")) {
 #' selector that declares it, and the enclosing `@media` or `@supports` rule, if any. It works on the
 #' Taiga token sheets and on any application stylesheet, for audits.
 #'
-#' @param css Path to a CSS file, or CSS text (a string that contains `{`).
+#' @param css Path to a CSS file, or CSS text (any string that contains an opening brace).
 #' @param all Return every declaration, not only custom properties.
 #' @return A data frame with columns `selector`, `at_rule`, `name` and `value`, in source order.
 #' @seealso [taiga_tokens()], [taiga_contrast_audit()]

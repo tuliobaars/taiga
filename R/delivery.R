@@ -203,9 +203,11 @@ taiga_export_quarto <- function(fragment, dir = ".", file = "index.qmd", title =
 #' `session$sendCustomMessage("<id>-msg", ...)`.
 #'
 #' @param fragment A fragment from [taiga_fragment()], built with `mode = "shiny"`.
-#' @param server A Shiny server function (default: one that does nothing).
-#' @param title Window title.
 #' @param ... Extra UI elements (tags, dependencies such as [taiga_dependency()]).
+#' @param server A Shiny server function (default: one that does nothing). Pass it by name.
+#' @param title Window title.
+#' @param reset Remove the browser's default page margin, so the fragment fills the page (as in
+#'   [taiga_html_page()])?
 #' @return A `shiny.appobj`.
 #' @seealso [taiga_export_html()], [taiga_export_quarto()]
 #' @examples
@@ -216,10 +218,13 @@ taiga_export_quarto <- function(fragment, dir = ".", file = "index.qmd", title =
 #' shiny::runApp(taiga_shiny_app(f, title = "Hello"))
 #' }
 #' @export
-taiga_shiny_app <- function(fragment, server = NULL, title = "Taiga", ...) {
+taiga_shiny_app <- function(fragment, ..., server = NULL, title = "Taiga", reset = TRUE) {
   if (!requireNamespace("shiny", quietly = TRUE)) stop("taiga: the Shiny format needs the 'shiny' package", call. = FALSE)
-  ui <- htmltools::tagList(htmltools::tags$head(htmltools::tags$title(title)), ..., htmltools::HTML(fragment))
-  shiny::shinyApp(ui, server %||% function(input, output, session) NULL)
+  if (!is.null(server) && !is.function(server)) stop("taiga: `server` must be a Shiny server function (pass it by name)", call. = FALSE)
+  ui <- htmltools::tagList(
+    htmltools::tags$head(htmltools::tags$title(title), if (isTRUE(reset)) htmltools::tags$style("html, body { margin: 0; padding: 0; }")),
+    ..., htmltools::HTML(fragment))
+  shiny::shinyApp(ui, server %||% function(input, output, session) invisible(NULL))  # a NULL body would be skipped by Shiny
 }
 
 #' Capability matrix of the three formats

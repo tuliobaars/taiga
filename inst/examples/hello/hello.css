@@ -1,5 +1,6 @@
 /* taiga example front end: one card, styled with the Lumen tokens (works in Shiny, Quarto and HTML) */
 .hello { min-height: 320px; padding: 48px 24px; display: grid; place-items: center; background: var(--lm-bg, #fbfbfd); color: var(--lm-text, #1d1d1f); font-family: var(--lm-font, system-ui, sans-serif); }
+.hello[data-mode="html"], .hello[data-mode="shiny"] { min-height: 100vh; box-sizing: border-box; } /* full page; in Quarto it sits in the text */
 .hello .hello-card { width: min(560px, 100%); padding: 32px; border-radius: var(--lm-r-l, 26px); background: var(--lm-card, rgba(255, 255, 255, .72));
   border: 1px solid var(--lm-line, rgba(0, 0, 0, .08)); box-shadow: var(--lm-shadow-2, 0 30px 70px rgba(0, 0, 0, .13));
   -webkit-backdrop-filter: var(--lm-glass, blur(20px)); backdrop-filter: var(--lm-glass, blur(20px)); }

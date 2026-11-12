@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><style>
+.lanes { position: relative; margin-top: 30px; }
+.actors { position: relative; height: 92px; }
+.actor { position: absolute; top: 0; width: 300px; padding: 16px 18px; text-align: center; }
+.actor.l { left: 110px; } .actor.r { right: 110px; }
+.actor h3 { font-size: 19px; font-weight: 750; } .actor p { font-size: 13.5px; color: #6e6e73; margin-top: 4px; }
+.rows { display: grid; gap: 12px; margin-top: 18px; position: relative; }
+.rows::before, .rows::after { content: ""; position: absolute; top: -18px; bottom: -6px; width: 2px; background: repeating-linear-gradient(#c7c7cc 0 6px, transparent 6px 12px); }
+.rows::before { left: 259px; } .rows::after { right: 259px; }
+.row { display: grid; grid-template-columns: 260px 1fr 260px; align-items: center; min-height: 64px; }
+.msg { position: relative; margin: 0 1px; padding: 10px 16px 10px; border-radius: 4px 4px 14px 14px; background: #fff; border: 1px solid rgba(0,0,0,.08); border-top: 0; font-size: 14.5px; line-height: 1.4; }
+.msg .k { font-weight: 700; } .msg .mono { color: #0e8f83; }
+.arr { height: 2px; background: #0e8f83; position: relative; margin: 0 -17px 8px; }
+.to-s .arr::after, .to-c .arr::before { content: ""; position: absolute; top: -5px; border: 6px solid transparent; }
+.to-s .arr::after { right: 0; border-left: 11px solid #0e8f83; border-right: 0; }
+.to-c .arr::before { left: 0; border-right: 11px solid #0e8f83; border-left: 0; }
+.side { font-size: 13px; color: #3a3a3c; line-height: 1.35; }
+.row > .side:first-child { padding-right: 22px; text-align: right; } .row > .side:last-child { padding-left: 22px; }
+.side b { display: block; font-size: 11.5px; letter-spacing: .06em; color: #86868b; text-transform: uppercase; margin-bottom: 2px; }
+.note { margin-top: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.note div { padding: 14px 16px; border-radius: 16px; background: #fff; border: 1px solid rgba(0,0,0,.07); font-size: 14px; line-height: 1.4; color: #3a3a3c; }
+.note b { color: #1d1d1f; }
+</style></head><body><div class="wrap">
+<h1>The Shiny host: one input, one custom message</h1>
+<div class="sub">Requirement DLV-11, as QuantSkill implements it (<span class="mono">srcjs/js/30-transport.js</span>, <span class="mono">R/server.R</span>, <span class="mono">R/store.R</span>).</div>
+<div class="lanes">
+  <div class="actors"><div class="card actor l"><h3>Browser &middot; the front end</h3><p>ShinyTransport (<span class="mono">data-mode="shiny"</span>)</p></div>
+  <div class="card actor r"><h3>R &middot; the Shiny server</h3><p><span class="mono">qs_handle()</span>, store on disk</p></div></div>
+  <div class="rows">
+    <div class="row to-s"><div class="side"><b>on shiny:connected</b>send hello</div><div class="msg"><div class="arr"></div><span class="k">hello</span> &middot; <span class="mono">input$qs_msg</span> <span style="color:#86868b">{rid, kind: "hello", client}</span></div><div class="side"><b>server</b>reads config and bank</div></div>
+    <div class="row to-c"><div class="side"><b>front end</b>renders the app</div><div class="msg"><div class="arr"></div><span class="k">init</span> &middot; custom message <span class="mono">'qs-msg'</span> (no rid): the question bank <b>without answer keys</b></div><div class="side"><b>secrets</b>never leave R (DLV-20)</div></div>
+    <div class="row to-s"><div class="side"><b>lock in</b>self-ratings</div><div class="msg"><div class="arr"></div><span class="k">start</span>: register the assessment (the session payload)</div><div class="side"><b>store</b><span class="mono">sessions/&lt;id&gt;.json</span></div></div>
+    <div class="row to-c"><div class="side"><b>front end</b>"Saved" indicator</div><div class="msg"><div class="arr"></div><span class="k">reply {rid}</span>: session id + <b>resume code</b> (e.g. K7QM-2DXP)</div><div class="side"><b>persistence</b>per assessment, not per Shiny session</div></div>
+    <div class="row to-s"><div class="side"><b>each answer</b></div><div class="msg"><div class="arr"></div><span class="k">grade</span>: item id + the response (then a <span class="k">checkpoint</span> with the session snapshot)</div><div class="side"><b>grade + write</b>atomic (temp file + rename), merged</div></div>
+    <div class="row to-c"><div class="side"><b>feedback</b>score, explanation</div><div class="msg"><div class="arr"></div><span class="k">reply {rid}</span>: the graded result, computed on the server</div><div class="side"><b>log</b>grading log on disk</div></div>
+    <div class="row to-s"><div class="side"><b>reconnect</b>or another device</div><div class="msg"><div class="arr"></div><span class="k">attach</span> / <span class="k">resume</span> (code): re-attach to the saved session</div><div class="side"><b>recover</b>snapshot + grading log</div></div>
+    <div class="row to-s"><div class="side"><b>last answer</b></div><div class="msg"><div class="arr"></div><span class="k">finish</span>: the result; the server re-scores it from its own grading log</div><div class="side"><b>archive</b>results, PDF, audit log</div></div>
+  </div>
+</div>
+<div class="note">
+  <div><b>Reconnects.</b> <span class="mono">session$allowReconnect(TRUE)</span>; the front end re-sends <span class="k">hello</span>/<span class="k">attach</span> on <span class="mono">shiny:connected</span> and shows an offline banner meanwhile.</div>
+  <div><b>Every request has an id</b> (<span class="mono">rid</span>): replies are matched to requests; pending requests fail cleanly when the connection drops.</div>
+  <div><b>Integrity.</b> At the end, the server re-scores from <b>its own</b> grading log and flags any mismatch (<span class="mono">verified = FALSE</span>).</div>
+</div>
+</div></body></html>

@@ -39,11 +39,13 @@ A starter token sheet for new projects is in [`lumen-tokens.css`](../../css/lume
 
 ### Gallery
 
+*Click a picture to expand it.*
+
 | | |
 |---|---|
-| ![QuantSkill landing](../../../../QuantSkill/docs/features/01-landing.jpg) QuantSkill: daylight glass hero | ![Study story hero](../../../../lumenJourney/docs/features/01-hero.jpg) lumenJourney: cinema hero |
-| ![DirectoR library](../../../../DirectoR/docs/features/01-library.jpg) DirectoR: studio dark | ![RockShiny highway](../../../../RockShiny/docs/features/01-highway.jpg) RockShiny: stage dark |
-| ![QuantSkill dark](../../../../QuantSkill/docs/features/02-landing-dark.jpg) True-black dark theme | ![Study story journey](../../../../lumenJourney/docs/features/03-journey.jpg) Scroll-driven storytelling |
+| [![QuantSkill landing](../img/thumb/QuantSkill-01-landing.jpg)](../img/full/QuantSkill-01-landing.jpg) QuantSkill: daylight glass hero | [![Study story hero](../img/thumb/lumenJourney-01-hero.jpg)](../img/full/lumenJourney-01-hero.jpg) lumenJourney: cinema hero |
+| [![DirectoR library](../img/thumb/DirectoR-01-library.jpg)](../img/full/DirectoR-01-library.jpg) DirectoR: studio dark | [![RockShiny highway](../img/thumb/RockShiny-01-highway.jpg)](../img/full/RockShiny-01-highway.jpg) RockShiny: stage dark |
+| [![QuantSkill dark](../img/thumb/QuantSkill-02-landing-dark.jpg)](../img/full/QuantSkill-02-landing-dark.jpg) True-black dark theme | [![Study story journey](../img/thumb/lumenJourney-03-journey.jpg)](../img/full/lumenJourney-03-journey.jpg) Scroll-driven storytelling |
 
 ---
 
@@ -295,7 +297,7 @@ partly to make them). Keep heavy effects switchable: QuantSkill's recorder injec
   immersive canvas. Chrome is quiet, the stage is loud (instrument colours), and the HUD floats as
   glass on the stage.
 
-| ![Story glance](../../../../lumenJourney/docs/features/02-glance.jpg) | ![Story paper](../../../../lumenJourney/docs/features/10-light-efficacy.jpg) | ![DirectoR story](../../../../DirectoR/docs/features/04-story.jpg) | ![RockShiny loop](../../../../RockShiny/docs/features/03-practice-loop.jpg) |
+| [![Story glance](../img/thumb/lumenJourney-02-glance.jpg)](../img/full/lumenJourney-02-glance.jpg) | [![Story paper](../img/thumb/lumenJourney-10-light-efficacy.jpg)](../img/full/lumenJourney-10-light-efficacy.jpg) | [![DirectoR story](../img/thumb/DirectoR-04-story.jpg)](../img/full/DirectoR-04-story.jpg) | [![RockShiny loop](../img/thumb/RockShiny-03-practice-loop.jpg)](../img/full/RockShiny-03-practice-loop.jpg) |
 |---|---|---|---|
 | Glass tiles, big numbers | Paper theme | Studio: cards + live preview | Stage: HUD + loop |
 

@@ -41,11 +41,13 @@ A starter token sheet for new projects is in [`neue-tokens.css`](../../css/neue-
 
 ### Gallery
 
+*Click a picture to expand it.*
+
 | | |
 |---|---|
-| ![teal_neue home](../../../../teal_neue/docs/features/01-home.jpg) teal_neue: study at a glance | ![BlockR canvas](../../../../BlockR/docs/features/01-canvas-template.jpg) BlockR: a template as blocks |
-| ![teal_neue module](../../../../teal_neue/docs/features/03-analysis-module.jpg) Module: tint, tools on hover, filter panel | ![BlockR dark](../../../../BlockR/docs/features/09-dark-explain.jpg) BlockR: lifted-slate dark |
-| ![teal_neue dark](../../../../teal_neue/docs/features/02-home-dark.jpg) teal_neue: ink-blue dark | ![Command bar](../../../../teal_neue/docs/features/04-command-bar.jpg) Command bar |
+| [![teal_neue home](../img/thumb/teal_neue-01-home.jpg)](../img/full/teal_neue-01-home.jpg) teal_neue: study at a glance | [![BlockR canvas](../img/thumb/BlockR-01-canvas-template.jpg)](../img/full/BlockR-01-canvas-template.jpg) BlockR: a template as blocks |
+| [![teal_neue module](../img/thumb/teal_neue-03-analysis-module.jpg)](../img/full/teal_neue-03-analysis-module.jpg) Module: tint, tools on hover, filter panel | [![BlockR dark](../img/thumb/BlockR-09-dark-explain.jpg)](../img/full/BlockR-09-dark-explain.jpg) BlockR: lifted-slate dark |
+| [![teal_neue dark](../img/thumb/teal_neue-02-home-dark.jpg)](../img/full/teal_neue-02-home-dark.jpg) teal_neue: ink-blue dark | [![Command bar](../img/thumb/teal_neue-04-command-bar.jpg)](../img/full/teal_neue-04-command-bar.jpg) Command bar |
 
 ---
 
@@ -194,7 +196,7 @@ paint** (no flash):
 | `data-tn-canvas` | (dots) · `plain` | Page background. |
 | `.tn-still` class | motion off | No animations (also from `prefers-reduced-motion`). |
 
-![Appearance panel](../../../../teal_neue/docs/features/06-appearance.jpg)
+[![Appearance panel](../img/thumb/teal_neue-06-appearance.jpg)](../img/full/teal_neue-06-appearance.jpg)
 
 ---
 

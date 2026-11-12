@@ -1,7 +1,9 @@
 test_that("JSON is host-safe (DLV-05)", {
   s <- taiga_json_script(list(a = "</script><!-- x"), "d")
-  expect_false(grepl("</script><", s, fixed = TRUE))
-  expect_match(s, "\\u003c/script>", fixed = TRUE)
+  body <- sub('^<script type="application/json" id="d">(.*)</script>$', "\\1", s)
+  expect_false(grepl("<", body, fixed = TRUE))                       # no markup left in the data
+  expect_match(body, "\\u003c", fixed = TRUE)
+  expect_equal(jsonlite::fromJSON(body)$a, "</script><!-- x")         # and the value round-trips
   expect_match(s, '^<script type="application/json" id="d">')
 })
 
@@ -27,7 +29,7 @@ test_that("one fragment, three hosts", {
   }
   f <- taiga_fragment("hello", css = ex$css, js = ex$js, data = data, framework = "lumen")
   html <- taiga_export_html(f, file.path(tempdir(), "taiga-test.html"), title = "Hello")
-  page <- paste(readLines(html), collapse = "\n")
+  page <- paste(readLines(html, encoding = "UTF-8", warn = FALSE), collapse = "\n")
   expect_match(page, "^<!DOCTYPE html>")
   expect_match(page, "<title>Hello</title>", fixed = TRUE)
   json <- regmatches(page, regexpr('(?<=id="hello-data">).*?(?=</script>)', page, perl = TRUE))
@@ -56,4 +58,24 @@ test_that("dependency", {
   dep <- taiga_dependency("neue")
   expect_equal(dep$name, "taiga-neue")
   expect_equal(dep$stylesheet, "neue-tokens.css")
+})
+
+test_that("the Shiny format builds an app", {
+  skip_if_not_installed("shiny")
+  ex <- taiga_example()
+  f <- taiga_fragment("hello", mode = "shiny", css = ex$css, js = ex$js, framework = "lumen", data = list(a = 1))
+  app <- taiga_shiny_app(f, taiga_dependency("lumen"), title = "Hello")
+  expect_true(inherits(app, "shiny.appobj"))
+  expect_error(taiga_shiny_app(f, server = "not a function"))
+})
+
+test_that("bslib themes compile for every theme", {
+  skip_if_not_installed("bslib")
+  skip_on_cran()                                                       # compiling Sass takes a few seconds
+  th <- taiga_themes()
+  for (i in seq_len(nrow(th))) {
+    t <- taiga_bs_theme(th$framework[i], th$theme[i])
+    expect_true(bslib::is_bs_theme(t))
+    expect_true(length(bslib::bs_theme_dependencies(t)) > 0)
+  }
 })

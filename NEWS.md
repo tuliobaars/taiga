@@ -1,5 +1,21 @@
 # taiga 0.1.0
 
+* `taiga_shiny_app()` takes extra UI in `...` before `server` and `title`, so
+  `taiga_shiny_app(f, taiga_dependency("lumen"))` works. Its default server works in Shiny: a server
+  whose body is `NULL` is skipped by Shiny. The app removes the page margin (`reset = TRUE`), as
+  `taiga_html_page()` does.
+* `taiga_guide()` uses `file.show()` from base R (it was called as `utils::file.show()`).
+* Checked with `R CMD check` (R 4.3.3 and R 4.5.2): Status OK.
+* Tests run from the sources (`test-build.R`) report two things that make `R CMD build` lose the
+  vignette: a `.Rbuildignore` line that matches needed files, and files dated in the future (then
+  `tools::buildVignettes()` deletes `vignettes/taiga.Rmd` as an intermediate file).
+* `.Rbuildignore` also ignores `renv/` and `renv.lock`.
+
+* The guides and the README carry their own pictures (`inst/guides/img/`): thumbnails that link to the
+  full image. The delivery model guide has one picture per format and per reference implementation
+  (Lumen: QuantSkill, lumenJourney, DirectoR, RockShiny; Neue: teal_neue, BlockR), an architecture
+  diagram and a diagram of the Shiny protocol.
+
 * First release: the Taiga design system as an R package.
 * Guides (`taiga_guide()`, `taiga_guides()`): Lumen and Neue styleguides, requirements for new
   projects, and the Shiny · Quarto · HTML delivery model, installed as Markdown.
